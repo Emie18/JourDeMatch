@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../css/connexion.css">
     <link rel="stylesheet" type="text/css" href="../css/responsive.css">
     <link rel="stylesheet" type="text/css" href="../css/responsive_cc.css">
+    <script src="../js/inscription.js"></script>
 </head>
 <body>
     <label id="label1" for="toggle">☰ <h2 class="title">JDM</h2></label>
@@ -21,17 +22,17 @@
     <div class="cc">
         <div class="block_principale agrandir">
             <h2>Inscription</h2>
-            <form action="inscription.html">
+            <form id="signupform">
                 <p class="text">Nom :</p>
-                <input type="text" placeholder="Le Rouzic">
+                <input type="text" name="name" placeholder="Le Rouzic" required>
                 <p class="text">Prénom :</p>
-                <input type="text" placeholder="Emilie">
+                <input type="text" name="forename" placeholder="Emilie" required>
                 <p class="text text-p">Photo de profil :
                 <label class="imp">importer<input type="file" class="insert_photo" name="photo" accept="image/png, image/jpeg"></label></p>
                 <p class="text">Email :</p>
-                <input type="text" placeholder="mon.email@gmail.com">
+                <input type="text" name="email" placeholder="mon.email@gmail.com" required>
                 <p class="text">Mot de passe :</p>
-                <input type="password">
+                <input type="password" name="password" required>
                 <p><input class="btn_cc" type ="submit" value="s'inscrire"></p>
             </form>
         </div>
