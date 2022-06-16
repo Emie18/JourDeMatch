@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un match</title>
+    <link rel="stylesheet" type="text/css" href="css/page1.css">
+    <link rel="stylesheet" type="text/css" href="css/connexion.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive_cc.css">
+    <script src="js/ajax.js" defer></script>
+    <script src="js/select.js" defer></script>
+    <script src="js/ajouter.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"
+      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"
+      integrity="sha256-x3YZWtRjM8bJqf48dFAv/qmgL68SI4jqNWeSLMZaMGA=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="placement">
+        <div class="div">
+
+            <label id="label1" for="toggle">☰ <h2 class="title">JDM</h2></label>
+            <input type="checkbox" id="toggle">
+            <div class="header">
+                <a class="liste_match" href="index.html">Liste des matchs</a>
+                <h2 class="title">Jour De Match</h2>
+                <div class="btn_connexion"><a href="index.html" class="text-connexion">Retour</a></div>
+            </div>
+            <div class="cc">
+                <div class="block_principale agrandir2" id="formulaire">
+                    <h2>Ajoueter un match</h2>
+                    <form method="post" id="form">
+                        <p class="text">Titre :</p>
+                        <input type="text" maxlength="25" id="titre" placeholder="match de ..." required>
+                        <p class="text">Adresse :</p>
+                        <input type="text" id="adresse" placeholder="10 rue de ..."required>
+                        <p class="text"> Ville :</p>
+                            <select name="ville" id="villes" required>
+                            </select>
+                        
+                        <p class="text">Description:</p>
+                        <input type="text-area" id="description" placeholder="descriptif du match" required>
+                        <p class="text">Nombre de joueurs :</p>
+                        <input type="number" min=1 max=100 id="nb" required>
+                        <p class="text">Date:</p>
+                        <input type="date" id="date" required>
+                        <p class="text">Heure début:</p>
+                        <input type="time" id="heure" required>
+                        <p class="text">Durée:</p>
+                        <input type="time" id="duree" required>
+                        <p class="text">Type de sport: </p>
+                            <select id="sports"required>
+                            </select>
+                       
+                        <p>
+                            <button class="btn_cc" type="submit" value="Ajouter">
+                                Ajouter
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <p>@ Copyright Emilie Le Rouzic</p>
+        </footer>
+    </div>
+</body>
+
+</html>

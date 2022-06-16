@@ -29,5 +29,22 @@
     return $db;
   }
 
+  function dbAddTweet($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb)
+  {
+    try
+    {
+      $request = "INSERT into jeux (titre,adresse,insee,description,date,heure,duree,type_sport,nb_joueurmax)Values('".$titre."','".$adresse."','".$villes."','".$description."','".$date."','".$heure."','".$duree."','".$sports."',".$nb.")";
+      $statement = $db->prepare($request);
+       $statement->execute();
+      print_r($request);
+    }
+    catch (PDOException $exception)
+    {
+      error_log('Request error: '.$exception->getMessage());
+      return false;
+    }
+    return true;
+  }
+
 
 ?>

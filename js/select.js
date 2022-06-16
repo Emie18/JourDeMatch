@@ -5,12 +5,13 @@ function affiche_liste_villes(data){
      var sel = document.getElementById('villes');
     data.forEach(elem => {
     let opt = document.createElement('option');
-    opt.value = elem.nom;
+    opt.value = elem.insee;
     opt.textContent += elem.nom // or opt.innerHTML += user.name
     sel.appendChild(opt);
         // console.log(element.nom);
     });
 }
+
 ajaxRequest('GET', 'php/request.php/sports', affiche_liste_sports);
 function affiche_liste_sports(data){
 
@@ -47,7 +48,7 @@ function affiche_liste_cartes(data){
         <div class="date_heure">
             <p class="lieu">Date: ${elem.date}</p>
             <p class="lieu">début: ${elem.heure}</p>
-            <p class="lieu">départ: ${elem.duree}</p>
+            <p class="lieu">durée: ${elem.duree}</p>
         </div>
     </div>
     `

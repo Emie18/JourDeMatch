@@ -6,7 +6,7 @@
 .block_principale{
 
     width: 35%;
-    height: 500px;
+    height: 600px;
     margin: auto;
     text-align: center;
     background: #7B2CBF;
@@ -43,8 +43,8 @@
     margin-left:25%;
 
 }
-.block_principale input{
-    margin:30px;
+.block_principale input , select{
+    margin:15px;
     height: 32px;
     width: 50%;
     background:#E0AAFF;
@@ -80,6 +80,9 @@
 }
 .agrandir{
     height: 750px;
+}
+.agrandir2{
+    height: 950px;
 }
 .text-p{
     margin-bottom: 20px;

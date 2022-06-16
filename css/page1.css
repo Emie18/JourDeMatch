@@ -211,6 +211,8 @@ body {
 }
 
 .carte h3 {
+    max-width: 40%;
+    overflow: hidden;
     position: absolute;
     font-style: normal;
     font-weight: 700;
@@ -240,6 +242,8 @@ body {
 
 .carte .info .lieu {
     position: relative;
+    max-width: 100px;
+    /*overflow: hidden;*/
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
@@ -250,6 +254,7 @@ body {
     color: #3C096C;
 
 }
+
 
 .carte .info .lieu img {
     position: relative;
@@ -263,8 +268,8 @@ body {
 .carte .info .date_heure{
     margin: 1rem;
 }
-.carte .info .date_heure p:last-child{
-    margin-top: 1rem;
+.carte .info .date_heure p{
+    margin-top:5px;
 }
 .conteneur_de_cartes{
     display:flex;

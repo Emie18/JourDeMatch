@@ -35,7 +35,8 @@ function ajaxRequest(type, url, callback, data = null)
       case 200:
       case 201:
         console.log(xhr.responseText);
-        callback(JSON.parse(xhr.responseText));
+        if(callback!=null)
+            callback(JSON.parse(xhr.responseText));
         //callback(xhr.responseText);
         break;
         default:

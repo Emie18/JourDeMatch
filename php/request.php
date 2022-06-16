@@ -50,6 +50,19 @@ if($requestMethod =='GET'&& $requestRessource == 'cartes'){
       $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
+if($requestMethod =='POST'&& $requestRessource == 'ajouter_carte'){
+  $titre = strip_tags($_POST['titre']);
+  $adresse = strip_tags($_POST['adresse']);
+  $villes= strip_tags($_POST['villes']);
+  $description = strip_tags($_POST['description']);
+  $date = strip_tags($_POST['date']);
+  $duree = strip_tags($_POST['duree']);
+  $heure = strip_tags($_POST['heure']).':00';
+  $sports = strip_tags($_POST['sports']);
+  $nb = strip_tags($_POST['nb']);
+ $data =null;
+  dbAddTweet($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb);
+}
 
   // Send data to the client.
   header('Content-Type: application/json; charset=utf-8');
