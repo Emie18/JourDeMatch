@@ -28,7 +28,7 @@ if($requestMethod =='GET'&& $requestRessource == 'profil'){
 }
 
 if($requestMethod =='GET'&& $requestRessource == 'villes'){
-  $request = 'SELECT * FROM ville order by nom';
+  $request = 'SELECT * FROM ville order by nom limit 20';
       $statement = $db->prepare($request);
       $statement->execute();
       $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -37,6 +37,14 @@ if($requestMethod =='GET'&& $requestRessource == 'villes'){
 
 if($requestMethod =='GET'&& $requestRessource == 'sports'){
   $request = 'SELECT * FROM sport order by type_sport';
+      $statement = $db->prepare($request);
+      $statement->execute();
+      $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+
+if($requestMethod =='GET'&& $requestRessource == 'cartes'){
+  $request = 'Select titre,nb_joueurmax,date,duree,heure,ville.nom,sport.icone,sport.image from jeux JOIN sport ON sport.type_sport = jeux.type_sport JOIN ville ON ville.insee=jeux.insee';
       $statement = $db->prepare($request);
       $statement->execute();
       $result = $statement->fetchAll(PDO::FETCH_ASSOC);

@@ -8,8 +8,8 @@
  */
 
   // Database constants.
-  define('DB_USER', 'root');
-  define('DB_PASSWORD', '');
+  define('DB_USER', 'user2');
+  define('DB_PASSWORD', 'user22');
   define('DB_NAME', 'jour_de_match');
   define('DB_SERVER', 'localhost');
 ?>
