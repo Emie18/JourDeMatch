@@ -1,0 +1,260 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: transform .2s;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: #5A189A;
+}
+
+.header {
+
+    height: 60px;
+    background: #3C096C;
+   display:flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.liste_match {
+    /* Liste des matchs */
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration: none;
+    color: #FFFFFF;
+    margin-left:10px;
+}
+.btn_connexion img {
+    margin-right:10px;
+    width: 40px;
+    height: 40px;
+    top: -15px;
+    opacity: 0.8;
+}
+.text-connexion {
+    /* Connexion */
+    background: #5A189A;
+    border-radius: 5px;
+    padding:5px;
+    margin-right:10px;
+    align-items: center;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+}
+.text-connexion:hover{
+    transform: scale( 1.1);
+}
+.title {
+    /* Jour De Match */
+    font-style: normal;
+    font-weight: 500;
+    font-size: 56.1067px;
+    color: #FFFFFF;
+    position:sticky;
+}
+
+.conteneur {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    max-width:100%;
+    height:150%;
+    background: #7B2CBF;
+}
+
+.footer {
+    /* position:fixed; */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 50px;
+    bottom: 0;
+    background: #3C096C;
+    width: 100%;
+    font-size: 15px;
+    color: #E0AAFF;
+
+}
+/* .footer::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    top:-50px;
+    height: 50px;
+    background: #5A189A;
+} */
+
+.filtre .filtre-titre {
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+    margin-right: 10px;
+}
+
+.filtre {
+    position: absolute;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 90%;
+    height: 30px;
+    left: 10%;
+    top: 20px;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+
+}
+
+.filtre p {
+    margin-left: 10px;
+}
+
+.filtre .nb_joueur {
+    width: 45px;
+}
+
+.filtre .btn_filtrer {
+    background: #5A189A;
+    padding: 5px 10px 5px 10px;
+    
+    top:-5px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    border: solid 3px #9D4EDD;
+
+}
+.filtre .btn_filtrer:hover{
+    transform: scale( 1.1);
+}
+
+.carte {
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+    width: 293px;
+    height: 156px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.49);
+    border: 4px solid rgba(255, 255, 255, 0.49);
+    border-radius: 10px;
+}
+.carte:hover{
+    transform: scale( 1.1);
+}
+.carte::before {
+    position: absolute;
+    content: "";
+    width: 5px;
+    height: 100%;
+    left: 45%;
+    background: rgba(255, 255, 255, 0.49);
+}
+
+.carte .banderol_complet {
+
+    position: relative;
+    width: 63px;
+    height: 11px;
+    top: 100px;
+    clip-path: polygon(100% 0%, 82% 49%, 100% 100%, 0 100%, 0% 50%, 0 0);
+    background: rgba(255, 255, 255, 0.49);
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+
+    color: #3C096C;
+}
+
+.carte img {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 25px;
+    max-width: 79px;
+    max-height: 79px;
+}
+
+.carte h3 {
+    position: absolute;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 12px;
+    bottom: 15px;
+    left: 15px;
+    color: #3C096C;
+}
+
+.carte .info {
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    height: 93%;
+    top:10px
+}
+
+.carte .info .logo {
+    position: absolute;
+    width: 29px;
+    height: 28px;
+    right: 2px;
+    top: -19px;
+    opacity: 0.8;
+}
+
+.carte .info .lieu {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 12px;
+    color: #3C096C;
+
+}
+
+.carte .info .lieu img {
+    position: relative;
+    margin-right: 5px;
+    width: 18px;
+    height: 18px;
+    top: -15px;
+    opacity: 0.8;
+}
+
+.carte .info .date_heure{
+    margin: 1rem;
+}
+.carte .info .date_heure p:last-child{
+    margin-top: 1rem;
+}
+.conteneur_de_cartes{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.conteneur_de_cartes a{
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}

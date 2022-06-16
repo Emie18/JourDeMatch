@@ -1,0 +1,101 @@
+.tout {
+
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+
+}
+a{
+    text-decoration: none;
+    color: #fff;
+}
+.c_profil {
+    /* width: 80%;
+height: fit-content; */
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    background: #7B2CBF;
+    border-radius: 50px;
+}
+.btn_modif{
+    padding:5px;
+    margin: 5px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.479);
+    background: #5A189A;
+    color: #fff;
+}
+.btn_modif:hover{
+    transform: scale(1.1);
+}
+.gauche {
+    color: #fff;
+    text-align: center;
+}
+
+.droite img {
+    width: 18px;
+}
+
+.droite {
+    margin-left: 10%;
+    ;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    width: 400px;
+}
+
+.droite p {
+    margin: 20px;
+}
+
+.droite span {
+    margin-left: 10%
+}
+
+.c_profil .photo {
+    width: 210px;
+    height: 219px;
+    box-shadow: 10px 10px #9D4EDD;
+    padding: 10px;
+
+}
+
+.edit {
+
+    display: block;
+    height: fit-content;
+}
+
+.edit img {
+    width: 50px;
+}
+
+.c_profil .photo img {
+    width: 100%;
+}
+
+.c_profil h2 {
+    margin-top: 1rem;
+
+}
+
+.footer {
+    position: absolute;
+}
+.droite .insert_photo{
+    background: none;
+    margin: 0px;
+    display: none;
+}
+.droite label{
+   width:fit-content;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 24px;
+    text-decoration-line: underline;
+}
