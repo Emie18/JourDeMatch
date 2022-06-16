@@ -8,6 +8,8 @@
     <title>Jour De Match</title>
     <link rel="stylesheet" type="text/css" href="css/page1.css">
     <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <script src="js/ajax.js" defer></script>
+    <script src="js/select.js" defer></script>
 </head>
 
 <body>
@@ -25,23 +27,20 @@
          <form action='index.php' class="filtre">
             <h3 class="filtre-titre">Liste des prochains match :</h3>
             <p> Ville :
-                <select name="ville" class="ville" aria-placeholder="Brest">
-                    <option>Brest</option>
+                <select name="ville" class="ville" id="villes" aria-placeholder="Brest">
                 </select>
             </p>
             <p> Nombre de joueurs :
                 <input type="number" min="1" class="nb_joueur">
             </p>
             <p> Sport :
-                <select name="sport" class="sport" aria-placeholder="foot">
-                    <option>Foot</option>
-                    <option>Natation</option>
+                <select name="sport" class="sport" id="sports" aria-placeholder="foot">
                 </select>
             </p>
             <p> dispo :
                 <select name="dispo" class="dispo" aria-placeholder="complet">
-                    <option>complet</option>
-                    <option>non complet</option>
+                    <option value="complet">complet</option>
+                    <option value="noncomplet">non complet</option>
                 </select>
             </p>
             <p><input type='submit' class="btn_filtrer" value='filtrer'></p>
