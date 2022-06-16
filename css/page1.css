@@ -31,10 +31,10 @@ body {
     color: #FFFFFF;
     margin-left:10px;
 }
-.btn_connexion img {
+.header img {
     margin-right:10px;
     width: 40px;
-    height: 40px;
+    height: 100%;
     top: -15px;
     opacity: 0.8;
 }
