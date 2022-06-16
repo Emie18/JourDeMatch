@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `jourdematch`
@@ -34,7 +34,7 @@ CREATE TABLE `a_comme_statut` (
   `email` varchar(255) NOT NULL,
   `organisateur` tinyint NOT NULL,
   `joueur` tinyint NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE `demande` (
   `id_jeux` int NOT NULL,
   `email` varchar(255) NOT NULL,
   `accepter` tinyint NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -58,7 +58,7 @@ CREATE TABLE `demande` (
 DROP TABLE IF EXISTS `forme_sportive`;
 CREATE TABLE `forme_sportive` (
   `texte` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -77,14 +77,14 @@ CREATE TABLE `jeux` (
   `description` varchar(255) DEFAULT NULL,
   `equipe_a` int DEFAULT NULL,
   `equipe_b` int DEFAULT NULL,
-  `prenom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `prenom` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nom` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `date` date NOT NULL,
   `duree` time NOT NULL,
   `heure` time NOT NULL,
   `type_sport` varchar(50) NOT NULL,
   `insee` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `jeux`
@@ -105,7 +105,7 @@ CREATE TABLE `notif` (
   `id_notif` int NOT NULL,
   `text` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -124,7 +124,7 @@ CREATE TABLE `profil` (
   `notation_app_web` int DEFAULT NULL,
   `insee` varchar(6) NOT NULL,
   `texte` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `profil`
@@ -142,9 +142,9 @@ INSERT INTO `profil` (`email`, `mot_de_passe`, `prenom`, `nom`, `photo`, `date_n
 DROP TABLE IF EXISTS `sport`;
 CREATE TABLE `sport` (
   `type_sport` varchar(50) NOT NULL,
-  `icone` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `image` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `icone` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `image` text CHARACTER SET utf8 COLLATE utf8_general_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `sport`
@@ -165,7 +165,7 @@ DROP TABLE IF EXISTS `ville`;
 CREATE TABLE `ville` (
   `insee` varchar(6) NOT NULL,
   `nom` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `ville`
