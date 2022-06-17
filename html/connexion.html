@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../css/connexion.css">
     <link rel="stylesheet" type="text/css" href="../css/responsive.css">
     <link rel="stylesheet" type="text/css" href="../css/responsive_cc.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../js/ajax.js" defer></script>
     <script src="../js/connexion.js" defer></script>
 </head>
@@ -23,11 +24,11 @@
     <div class="cc">
         <div class="block_principale">
             <h2>Connexion</h2>
-            <form action="connexion.html" name="co">
+            <form action="connexion.html" name="co" id="loginform">
                 <p class="text">Email :</p>
                 <input type="text" id="email" placeholder="mon.email@gmail.com">
                 <p class="text">Mot de passe :</p>
-                <input  id="mot_de_passe" type="password">
+                <input id="password" type="password">
                 <p><input class="btn_cc" type ="button" id='btn' value="Connexion"></p>
                 <p><a href="inscription.html">Inscription</a></p>
             </form>
