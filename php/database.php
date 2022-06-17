@@ -29,14 +29,14 @@
     return $db;
   }
 
-  function dbAddTweet($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb)
+  function dbAddTweet($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb,$prix)
   {
     try
     {
-      $request = "INSERT into jeux (titre,adresse,insee,description,date,heure,duree,type_sport,nb_joueurmax)Values('".$titre."','".$adresse."','".$villes."','".$description."','".$date."','".$heure."','".$duree."','".$sports."',".$nb.")";
+      $request = "INSERT into jeux (titre,adresse,insee,description,date,heure,duree,type_sport,nb_joueurmax,prix)Values('".$titre."','".$adresse."','".$villes."','".$description."','".$date."','".$heure."','".$duree."','".$sports."',".$nb.",".$prix.")";
       $statement = $db->prepare($request);
        $statement->execute();
-      print_r($request);
+      //print_r($request);
     }
     catch (PDOException $exception)
     {
@@ -45,6 +45,39 @@
     }
     return true;
   }
+  function connexion($db, $email, $mot_de_passe,$tab)
+  {
+    foreach($tab as $key => $elem){
+      if($email==$elem['email']&& $mot_de_passe==$elem['mot_de_passe']){
+        //print('oui');
+        if (empty(session_id())) session_start();
+            $_SESSION['profil'] = $email;
+        }
+    }
+    return $email;
 
+  }
+function modif_profil($db, $profil, $villes,$date_n,$formes,$note){
+  $request = "UPDATE profil SET insee =".$villes." , date_naissance = '".$date_n."', notation_app_web = ".$note.", texte = '".$formes."' WHERE email = '".$profil."'";
+  $statement = $db->prepare($request);
+       $statement->execute();
+       print_r($request);
+}
+function inscription($db, $nom, $prenom,$photo,$email,$mot_de_passe,$ville)
+{
+  try
+  {
+    $request = "INSERT into profil (nom,prenom,photo,email,mot_de_passe,insee)Values('".$nom."','".$prenom."','".$photo."','".$email."','".$mot_de_passe."',".$ville.")";
+    $statement = $db->prepare($request);
+     $statement->execute();
+      print_r($request);
+  }
+  catch (PDOException $exception)
+  {
+    error_log('Request error: '.$exception->getMessage());
+    return false;
+  }
+  return true;
+}
 
 ?>

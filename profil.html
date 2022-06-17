@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="css/connexion.css">
     <link rel="stylesheet" type="text/css" href="css/responsive.css">
     <link rel="stylesheet" type="text/css" href="css/profil.css">
+    <script src="js/ajax.js" defer></script>
+    <script src="js/profil.js" defer></script>
 </head>
 
 <body>
@@ -27,16 +29,13 @@
         <div class="c_profil">
             <div class="gauche">
                 <div class="photo"><img src="icone/profil.png"></div>
-                <h2>John Smith</h2>
+                <h2 id="nom_prenom"></h2>
             </div>
             <div class="droite">
-                <p>Ville : Brest <span>Age: 20ans</span></p>
-                <p>Forme sportive : exellente</p>
+                <p id="ville_age"></p>
+                <p id="forme"></p>
                 <p>Nombre de matchs joués: 10</p>
-                <p>Note :
-
-                    <img src="icone/star.png"><img src="icone/star.png"><img src="icone/star.png">
-
+                <p id = note>
                 </p>
             </div>
             <a class="edit" href="modif_profil.html"><img src="icone/edit.png"></a>

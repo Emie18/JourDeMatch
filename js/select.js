@@ -24,6 +24,18 @@ function affiche_liste_sports(data){
        // console.log(element.nom);
    });
 }
+ajaxRequest('GET', 'php/request.php/forme', affiche_liste_forme);
+function affiche_liste_forme(data){
+
+    var sel = document.getElementById('formes');
+   data.forEach(elem => {
+   let opt = document.createElement('option');
+   opt.value = elem.texte;
+   opt.textContent += elem.texte // or opt.innerHTML += user.name
+   sel.appendChild(opt);
+       // console.log(element.nom);
+   });
+}
 ajaxRequest('GET', 'php/request.php/cartes', affiche_liste_cartes);
 function affiche_liste_cartes(data){
 
