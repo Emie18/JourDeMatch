@@ -6,7 +6,7 @@
 .block_principale{
 
     width: 35%;
-    height: 600px;
+    height: 400px;
     margin: auto;
     text-align: center;
     background: #7B2CBF;
@@ -79,7 +79,8 @@
    
 }
 .agrandir{
-    height: 750px;
+    height: 580px;
+    margin-top:10px
 }
 .agrandir2{
     height: 950px;
