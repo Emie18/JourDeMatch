@@ -56,10 +56,10 @@ function affiche_liste_cartes(data){
     <div id="banderole${elem.id_jeux}"class="banderol_complet">Complet</div>
     <h3>${elem.titre}</h3>
     <div class="info">
-        <img class="logo" src="${elem.icone}">
+        <img class="logo s" id="${elem.type_sport}"src="${elem.icone}">
         <div class="lieu">
             <img src="icone/localisation.png">
-            <p class="localisation">${elem.nom}</p>
+            <p class="localisation v">${elem.nom}</p>
         </div>
         <div class="lieu">
             <img src="icone/homme.png">

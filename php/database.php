@@ -29,22 +29,27 @@
     return $db;
   }
 
-  function dbAddTweet($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb,$prix)
-  {
-    try
-    {
-      $request = "INSERT into jeux (titre,adresse,insee,description,date,heure,duree,type_sport,nb_joueurmax,prix)Values('".$titre."','".$adresse."','".$villes."','".$description."','".$date."','".$heure."','".$duree."','".$sports."',".$nb.",".$prix.")";
-      $statement = $db->prepare($request);
-       $statement->execute();
-      //print_r($request);
-    }
-    catch (PDOException $exception)
-    {
-      error_log('Request error: '.$exception->getMessage());
-      return false;
-    }
-    return true;
+function dbAddTweet($db, $titre, $adresse, $villes, $description, $date, $heure, $duree, $sports, $nb, $prix)
+{
+  try {
+    $request = "INSERT into jeux (titre,adresse,insee,description,date,heure,duree,type_sport,nb_joueurmax,prix)Values('" . $titre . "','" . $adresse . "','" . $villes . "','" . $description . "','" . $date . "','" . $heure . "','" . $duree . "','" . $sports . "'," . $nb . "," . $prix . ")";
+    $statement = $db->prepare($request);
+    $statement->execute();
+    $request = "SELECT id_jeux FROM jeux order by id_jeux DESC LIMIT 1";
+    $statement = $db->prepare($request);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $id_jeux = $result[0]['id_jeux'];
+    $re = "INSERT into a_comme_statut (id_jeux,email,organisateur,joueur)Values(" . $id_jeux . ",'" . $_SESSION['profil'] . "',1,0)";
+    $st = $db->prepare($re);
+    $st->execute();
+    print_r($re);
+  } catch (PDOException $exception) {
+    error_log('Request error: ' . $exception->getMessage());
+    return false;
   }
+  return true;
+}
 function connexion($db, $email, $mot_de_passe, $tab)
 {
   foreach ($tab as $key => $elem) {

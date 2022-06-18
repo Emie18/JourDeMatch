@@ -56,7 +56,7 @@ if($requestMethod =='GET'&& $requestRessource == 'sports'){
 }
 
 if($requestMethod =='GET'&& $requestRessource == 'cartes'){
-  $request = 'Select id_jeux ,titre,nb_joueurmax,date,TIME_FORMAT(duree,"%Hh%i") as duree,date,TIME_FORMAT(heure,"%Hh%i") as heure,ville.nom,sport.icone,sport.image from jeux JOIN sport ON sport.type_sport = jeux.type_sport JOIN ville ON ville.insee=jeux.insee';
+  $request = 'Select id_jeux ,titre,nb_joueurmax,date,TIME_FORMAT(duree,"%Hh%i") as duree,date,TIME_FORMAT(heure,"%Hh%i") as heure,ville.nom,sport.icone,sport.image,sport.type_sport from jeux JOIN sport ON sport.type_sport = jeux.type_sport JOIN ville ON ville.insee=jeux.insee';
       $statement = $db->prepare($request);
       $statement->execute();
       $result = $statement->fetchAll(PDO::FETCH_ASSOC);
