@@ -45,18 +45,22 @@
     }
     return true;
   }
-  function connexion($db, $email, $mot_de_passe,$tab)
-  {
-    foreach($tab as $key => $elem){
-      if($email==$elem['email']&& $mot_de_passe==$elem['mot_de_passe']){
-        //print('oui');
-        if (empty(session_id())) session_start();
-            $_SESSION['profil'] = $email;
-        }
+function connexion($db, $email, $mot_de_passe, $tab)
+{
+  foreach ($tab as $key => $elem) {
+    if ($email == $elem['email'] && $mot_de_passe == $elem['mot_de_passe']) {
+      //print('oui');
+      if (empty(session_id())) session_start();
+      $_SESSION['profil'] = $email;
+      return $email;
+    } else {
+      $_SESSION['profil'] = '';
     }
-    return $email;
-
   }
+  return null;
+}
+    //return null;
+
 function modif_profil($db, $profil, $villes,$date_n,$formes,$note){
   $request = "UPDATE profil SET insee =".$villes." , date_naissance = '".$date_n."', notation_app_web = ".$note.", texte = '".$formes."' WHERE email = '".$profil."'";
   $statement = $db->prepare($request);

@@ -8,8 +8,10 @@
     <title>Jour De Match</title>
     <link rel="stylesheet" type="text/css" href="css/page1.css">
     <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/ajax.js" defer></script>
     <script src="js/select.js" defer></script>
+
 </head>
 
 <body>
@@ -22,16 +24,16 @@
             <div class="header">
                 <p>
                 <a class="liste_match" href="index.html">Liste des matchs</a>
-                <a class="liste_match" href="ajouter_un_match.html"><img src="icone/add.png"></a>
+                <a class="liste_match" id="add_match" href="ajouter_un_match.html"><img src="icone/add.png"></a>
                 </p>
                 <h2 class="title">Jour De Match</h2>
                 <div class="btn_connexion">
-                    <a href="profil.html"><img src="icone/profil.png"></a>
+                    <a href="profil.html" id="profil"><img src="icone/profil.png"></a>
                     <a href="connexion.html" class="text-connexion">connexion</a>
                 </div>
             </div>
             <div class="conteneur">
-                <form action='index.php' class="filtre">
+                <form class="filtre">
                     <h3 class="filtre-titre">Liste des prochains match :</h3>
                     <p> Ville :
                         <select name="ville" class="ville" id="villes" aria-placeholder="Brest">
