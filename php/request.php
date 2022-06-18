@@ -157,6 +157,19 @@ if($requestMethod =='GET'&& $requestRessource == 'nb_match_joue'){
   $data = $result;
 }
 
+if($requestMethod =='GET'&& $requestRessource == 'recherche_notif'){
+  $profil = $_SESSION['profil'];
+  $request = "SELECT profil.prenom,profil.nom, jeux.titre, a_comme_statut.email as organisateur FROM demande 
+  JOIN jeux ON jeux.id_jeux=demande.id_jeux 
+  JOIN profil ON profil.email = demande.email 
+  JOIN a_comme_statut ON a_comme_statut.id_jeux = demande.id_jeux
+  WHERE a_comme_statut.organisateur=1 AND a_comme_statut.email='".$profil."'";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+
   // Send data to the client.
   header('Content-Type: application/json; charset=utf-8');
   header('Cache-control: no-store, no-cache, must-revalidate');

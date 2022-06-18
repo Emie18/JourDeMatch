@@ -12,6 +12,25 @@ body {
     background: #5A189A;
     position: relative;
 }
+.affiche_notif{
+    position: absolute;
+    top: 58px;
+    left: 80%;
+    background: #3C096C;
+    border-bottom-left-radius: 10px;
+    color: #fff;
+    font-size: 20px;
+    height: fit-content;
+    padding-bottom: 10px;
+    width: 20%;
+    z-index: 1;
+    display: none;
+}
+.notif_img{
+    width: 40px;
+    margin:20px;
+    position:relative;
+}
 .div{
     width: 100%;
    margin-bottom: 20px;

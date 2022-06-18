@@ -3,6 +3,7 @@ function affiche_header(data){
     if(data==""){
         document.getElementById('add_match').style.display="none";
         document.getElementById('profil').style.display="none";
+        document.getElementById('notif').style.display="none";
         //$('#add_match').style.display="none";
     }
 }
