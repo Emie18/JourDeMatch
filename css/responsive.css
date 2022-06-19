@@ -31,6 +31,9 @@ label,
       
         background: #3C096C;
     }
+    #photo{
+        background:none;
+    }
 
     .affiche_notif{
        /* position: absolute;*/
@@ -56,6 +59,12 @@ label,
         width: 100%;
         height: fit-content;
        
+      }
+      #notif{
+        display: block;
+      }
+      .btn_connexion #notif2 img{
+        display: none;
       }
       .affiche_notif p {
         display:none;
@@ -184,6 +193,7 @@ label,
     .header .btn_connexion #notif{
         display:none;
     }
+
     .text-connexion {
         background: none;
         padding-bottom: 1rem;

@@ -52,16 +52,18 @@ function dbAddTweet($db, $titre, $adresse, $villes, $description, $date, $heure,
 }
 function connexion($db, $email, $mot_de_passe, $tab)
 {
-  foreach ($tab as $key => $elem) {
-    if ($email == $elem['email'] && $mot_de_passe == $elem['mot_de_passe']) {
+  //foreach ($tab as $key => $elem) {
+    //if ($email == $elem['email'] && $mot_de_passe == $elem['mot_de_passe']) {
+
       //print('oui');
-      if (empty(session_id())) session_start();
-      $_SESSION['profil'] = $email;
+      print_r($tab[0]['email']);
+    if($tab['email']!=""){
+      
       return $email;
     } else {
-      $_SESSION['profil'] = '';
+      
     }
-  }
+  //}
   return null;
 }
     //return null;
@@ -76,7 +78,7 @@ function inscription($db, $nom, $prenom,$photo,$email,$mot_de_passe,$ville)
 {
   try
   {
-    $request = "INSERT into profil (nom,prenom,photo,email,mot_de_passe,insee)Values('".$nom."','".$prenom."','".$photo."','".$email."','".$mot_de_passe."',".$ville.")";
+    $request = "INSERT into profil (nom,prenom,photo,email,mot_de_passe,insee)Values('".$nom."','".$prenom."','".$photo."','".$email."',MD5('".$mot_de_passe."'),".$ville.")";
     $statement = $db->prepare($request);
      $statement->execute();
       print_r($request);

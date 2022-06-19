@@ -4,7 +4,13 @@ function affiche_header(data){
         document.getElementById('add_match').style.display="none";
         document.getElementById('profil').style.display="none";
         document.getElementById('notif').style.display="none";
+        document.getElementById('notif2').style.display="block";
         //$('#add_match').style.display="none";
+    }else{
+        document.getElementById('add_match').style.display="block";
+        document.getElementById('profil').style.display="block";
+        document.getElementById('notif').style.display="block";
+        document.getElementById('notif2').style.display="block";
     }
 }
 

@@ -3,7 +3,11 @@ ajaxRequest('GET','php/request.php/retour/',connecte)
 
 function connecte(data){
   document.getElementById('nom_prenom').innerHTML = data[0]['prenom']+' '+data[0]['nom'];
-  $('#ville_age').html("Ville :"+data[0]['ville'] +"<span>Age:"+ data[0]['date_naissance']+"</span>");
+  let age="";
+  if(data[0]['date_naissance']!=undefined){
+     age = "<span>Age:"+data[0]['date_naissance'] +"</span>";
+  }
+  $('#ville_age').html("Ville :"+data[0]['ville'] +age);
   //document.getElementById('ville_age').innerHTML = "Ville :"+data[0]['ville'] +"<span>Age:"+ data[0]['date_naissance']+"</span>";
   if(data[0]['notation_app_web']!=null){
     let p = document.getElementById('note');
@@ -13,6 +17,9 @@ function connecte(data){
         etoile +='<img src="icone/star.png">';
     }
     $('#note').html(etoile);
+    $('#note').val(parseInt(data[0]['notation_app_web']));
+    $('#forme option[value="'+data[0]['texte']+'"]').prop('selected', true);
+    
     //document.getElementById('note').innerHTML=etoile;
   }
   if(data[0]['texte']!=null){

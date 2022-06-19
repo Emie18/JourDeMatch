@@ -13,39 +13,54 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/ajax.js" defer></script>
     <script src="js/profil.js" defer></script>
+    <script src="js/notif.js" defer></script>
 
 </head>
 
 <body>
-    <label for="toggle">☰ <h2 class="title">JDM</h2></label>
-    <input type="checkbox" id="toggle">
-    <div class="header">
-        <a class="liste_match" href="index.html">Liste des matchs</a>
-        <h2 class="title">Jour De Match</h2>
-        <div class="btn_connexion">
-            <a href="profil.html"><img src="icone/profil.png"></a>
-            <!-- <a href="/html/connexion.html" class="text-connexion">connexion</a> -->
-        </div>
-    </div>
-    <div class="tout">
-        <div class="c_profil">
-            <div class="gauche">
-                <div class="photo"><img src="icone/profil.png"></div>
-                <h2 id="nom_prenom"></h2>
+    <div class="affiche_notif" id="affiche_notif"></div>
+    <div class="placement">
+        <div class="div">
+            <div class="responsive">
+                <label for="toggle"><span>☰</span></label>
+                <h2 class="title">JDM</h2>
+                <a class="notif" id="notif"><img id='icone_notif' src="icone/notif_non.png"></a>
             </div>
-            <div class="droite">
-                <p id="ville_age"></p>
-                <p id="forme"></p>
-                <p id="nb_match_joue"></p>
-                <p id = note>
+            <input type="checkbox" id="toggle">
+            <div class="header">
+                <p>
+                    <a class="liste_match" href="index.html">Liste des matchs</a>
+                    <a class="liste_match" id="add_match" href="ajouter_un_match.html"><img src="icone/add.png"></a>
                 </p>
+                <h2 class="title">Jour De Match</h2>
+                <div class="btn_connexion">
+                    <a class="notif" id="notif2"><img id='icone_notif2' src="icone/notif_non.png"></a>
+                    <a href="profil.html" id="profil"><img src="icone/profil.png"></a>
+                    <a href="connexion.html" class="text-connexion">connexion</a>
+                </div>
             </div>
-            <a class="edit" href="modif_profil.html"><img src="icone/edit.png"></a>
+            <div class="conteneur v2">
+                <div class="c_profil">
+                    <div class="gauche">
+                        <div class="photo"><img src="icone/profil.png"></div>
+                        <h2 id="nom_prenom"></h2>
+                    </div>
+                    <div class="droite">
+                        <p id="ville_age"></p>
+                        <p id="forme"></p>
+                        <p id="nb_match_joue"></p>
+                        <p id=note>
+                        </p>
+                    </div>
+                    <a class="edit" href="modif_profil.html"><img src="icone/edit.png"></a>
+                </div>
+
+            </div>
         </div>
+        <footer class="footer">
+            <p>@ Copyright Emilie Le Rouzic</p>
+        </footer>
     </div>
-    <footer class="footer">
-        <p>@ Copyright Emilie Le Rouzic</p>
-    </footer>
 </body>
 
 </html>

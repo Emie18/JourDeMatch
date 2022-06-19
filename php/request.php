@@ -128,15 +128,21 @@ if($requestMethod =='POST'&& $requestRessource == 'inscription'){
 
 if($requestMethod =='POST'&& $requestRessource == 'connexion'){
 
-  $request = "SELECT email,mot_de_passe FROM profil";
+  $email = strip_tags($_POST['email']);
+  $mot_de_passe = strip_tags($_POST['mot_de_passe']);
+  $request = "SELECT email FROM profil WHERE email ='".$email."' AND mot_de_passe = MD5('".$mot_de_passe."')";
   $statement = $db->prepare($request);
   $statement->execute();
   $tab = $statement->fetchAll(PDO::FETCH_ASSOC);
-  //$data = $tab;
-  $email = strip_tags($_POST['email']);
-  $mot_de_passe = strip_tags($_POST['mot_de_passe']);
-  //$data =null;
-  $data=connexion($db, $email, $mot_de_passe,$tab);
+  if (empty(session_id())) session_start();
+    if(empty($tab)){
+      $_SESSION['profil'] = '';
+      $data = null;
+    }else{
+      $_SESSION['profil'] = $email;
+      
+      $data = $email;
+    }
 }
 if($requestMethod =='GET'&& $requestRessource == 'retour'){
 
@@ -145,6 +151,14 @@ if($requestMethod =='GET'&& $requestRessource == 'retour'){
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  if(empty($result)){
+    $request = "SELECT ville.nom as ville,profil.nom,profil.prenom FROM profil
+                JOIN ville ON ville.insee=profil.insee 
+                WHERE email = 'bb@gmail.com'";
+    $statement = $db->prepare($request);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  }
   $data = $result;
  // $data = ;
 }
