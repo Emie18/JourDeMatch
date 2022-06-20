@@ -41,18 +41,26 @@
                 <form class="filtre">
                     <h3 class="filtre-titre">Liste des prochains match :</h3>
                     <p> Ville :
-                        <select name="ville" class="ville" id="villes" aria-placeholder="Brest">
+                        <select name="ville" class="ville" id="villes">
+                            <option value=0></option>
                         </select>
                     </p>
-                    <p> Nombre de joueurs :
-                        <input type="number" name="nb" min="1" class="nb_joueur">
+                    <p> Période :
+                        <select name="nb_jour" id="nb_jour" >
+                            <option value=0></option>
+                            <option value=7>+7 jours</option>
+                            <option value=15>+15 jours</option>
+                            <option value=30>+30 jours</option>
+                        </select>
                     </p>
                     <p> Sport :
                         <select name="sport" class="sport" id="sports" aria-placeholder="foot">
+                            <option value=0></option>
                         </select>
                     </p>
                     <p> dispo :
                         <select name="dispo" class="dispo" aria-placeholder="complet">
+                            <option value=0></option>
                             <option value="complet">complet</option>
                             <option value="noncomplet">non complet</option>
                         </select>
