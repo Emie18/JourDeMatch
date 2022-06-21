@@ -5,7 +5,7 @@ $('#f').submit((event) =>
     let carte = document.getElementsByClassName('carte');
     var element = document.getElementById('villes');
     var ville_f = element.options[ element.selectedIndex ].text;
-
+    console.log('coucou');
     let sports = document.getElementsByClassName('s');
     var el = document.getElementById('sports');
     var sport_f = el.options[ el.selectedIndex ].text;

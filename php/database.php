@@ -68,8 +68,8 @@ function connexion($db, $email, $mot_de_passe, $tab)
 }
     //return null;
 
-function modif_profil($db, $profil, $villes,$date_n,$formes,$note){
-  $request = "UPDATE profil SET insee =".$villes." , date_naissance = '".$date_n."', notation_app_web = ".$note.", texte = '".$formes."' WHERE email = '".$profil."'";
+function modif_profil($db, $profil, $villes,$date_n,$formes,$note,$photo){
+  $request = "UPDATE profil SET insee =".$villes." , date_naissance = '".$date_n."', notation_app_web = ".$note.", texte = '".$formes."', photo ='".$photo."' WHERE email = '".$profil."'";
   $statement = $db->prepare($request);
        $statement->execute();
        print_r($request);
@@ -78,7 +78,9 @@ function inscription($db, $nom, $prenom,$photo,$email,$mot_de_passe,$ville)
 {
   try
   {
-    $request = "INSERT into profil (nom,prenom,photo,email,mot_de_passe,insee)Values('".$nom."','".$prenom."','".$photo."','".$email."',MD5('".$mot_de_passe."'),".$ville.")";
+    $hashed_password = password_hash($mot_de_passe, PASSWORD_BCRYPT);
+    echo $hashed_password;
+    $request = "INSERT into profil (nom,prenom,photo,email,mot_de_passe,insee)Values('".$nom."','".$prenom."','".$photo."','".$email."', '".$hashed_password."',".$ville.")";
     $statement = $db->prepare($request);
      $statement->execute();
       print_r($request);

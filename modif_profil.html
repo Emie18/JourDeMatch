@@ -13,6 +13,7 @@
     <script src="js/ajax.js" defer></script>
     <script src="js/select.js" defer></script>
     <script src="js/ajouter.js" defer></script>
+    <script src="js/photo-dynamique.js" defer></script>
     <script src="js/profil.js" defer></script>
 
 </head>
@@ -44,7 +45,7 @@
                 <div class="c_profil">
 
                     <div class="gauche">
-                        <div class="photo"><img src="icone/profil.png"></div>
+                        <div class="photo"><img id="photo" src="icone/profil.png"></div>
                         <h2 id="nom_prenom"></h2>
                     </div>
 
@@ -54,15 +55,27 @@
 
                                 </select>
                             </p>
-                            <p>date de naissance: <input type="date" id="date_n" required></p>
+                            <p>date de naissance: <input type="date" id="date_n" value="2000-01-01" required></p>
                             <p>Forme sportive : <select name="forme" id="formes" class="ville" required>
 
                                 </select></p>
                             <p>Note :
                                 <input type="number" min=1 max=5 id="note" required>
                             </p>
-                            <p><label id="photo">modifier ma photo de profil<input type="file" class="insert_photo" name="photo"
-                                        accept="image/png, image/jpeg"></label></p>
+                            <p>
+                                        <select id="photos-profil"onChange="photo(this.value);" required>
+                                            <option value="0">--photo--</option>
+                                            <option value="1">blonde</option>
+                                            <option value="2">blond</option>
+                                            <option value="3">brune</option>
+                                            <option value="4">chatain</option>
+                                            <option value="5">lunette</option>
+                                            <option value="6">moustachu</option>
+                                            <option value="7">rousse</option>
+                                            <option value="8">chauve</option>
+                                            <option value="9">chauve</option>
+                                        </select>
+                                    </p>
                             <p>
                                 <input type='submit' class="btn_modif" id="btn_m" value='Modifier'>
                                 <a class="btn_modif" id='retour' href="profil.html">Annuler</a>

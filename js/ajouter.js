@@ -17,7 +17,8 @@ $('#formulaire').submit((event) =>
 $('#modif_p').submit((event) =>
   {
     event.preventDefault();
-    ajaxRequest('POST', 'php/request.php/modif_profil/',null, 'villes=' + $('#villes').val() + '&date_n=' + $('#date_n').val()+ '&formes=' + $('#formes').val()+ '&note=' + $('#note').val());
+    let photo = document.getElementById('photo').src;
+    ajaxRequest('POST', 'php/request.php/modif_profil/',null, 'villes=' + $('#villes').val() + '&date_n=' + $('#date_n').val()+ '&formes=' + $('#formes').val()+ '&note=' + $('#note').val()+ '&photo=' + photo);
     document.getElementById('retour').innerHTML="Retour";
     document.getElementById('btn_m').style.display="none";
   }
@@ -26,7 +27,8 @@ $('#modif_p').submit((event) =>
 $('#formulaire_inscription').submit((event) =>
   {
     event.preventDefault();
-    ajaxRequest('POST', 'php/request.php/inscription/',null, 'nom=' + $('#nom').val() + '&prenom=' + $('#prenom').val()+ '&photo=' + $('#photo').val()+ '&email=' + $('#email').val()+ '&mot_de_passe=' + $('#mot_de_passe').val()+ '&villes=' + $('#villes').val());
+    let photo = document.getElementById('photo').src;
+    ajaxRequest('POST', 'php/request.php/inscription/',null, 'nom=' + $('#nom').val() + '&prenom=' + $('#prenom').val()+ '&photo=' + $('#photo').val()+ '&email=' + $('#email').val()+ '&mot_de_passe=' + $('#mot_de_passe').val()+ '&villes=' + $('#villes').val()+ '&photo=' + photo);
     document.getElementById('formulaire_inscription').innerHTML = 'Incription réussi !!!';
     let d = document.createElement('a');
     d.className="btn_cc b";

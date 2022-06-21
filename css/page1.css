@@ -159,11 +159,11 @@ body {
 }
 
 .filtre {
-    position: absolute;
+     position: relative;
     display: flex;
     flex-wrap: nowrap;
     width: 90%;
-    height: 30px;
+    height: fit-content;
     left: 10%;
     top: 20px;
     font-style: italic;

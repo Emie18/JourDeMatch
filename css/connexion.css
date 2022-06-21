@@ -50,6 +50,14 @@
     background:#E0AAFF;
 
 }
+.block_principale #photos-profil{
+    width:fit-content;
+}
+.block_principale #photo {
+    width: 46px;
+    position: relative;
+    top: 15px;
+}
 .block_principale .btn_cc{
     border:none;
     background: #9D4EDD;

@@ -110,9 +110,9 @@ if($requestMethod =='POST'&& $requestRessource == 'modif_profil'){
   $date_n = strip_tags($_POST['date_n']);
   $formes= strip_tags($_POST['formes']);
   $note = strip_tags($_POST['note']);
- 
-  $data =null;
-  modif_profil($db, $_SESSION['profil'], $villes,$date_n,$formes,$note);
+  $photo = strip_tags($_POST['photo']);
+  $data = $photo;
+  modif_profil($db, $_SESSION['profil'], $villes,$date_n,$formes,$note,$photo);
 }
 if($requestMethod =='POST'&& $requestRessource == 'inscription'){
   $nom = strip_tags($_POST['nom']);
@@ -121,33 +121,33 @@ if($requestMethod =='POST'&& $requestRessource == 'inscription'){
   $email = strip_tags($_POST['email']);
   $mot_de_passe = strip_tags($_POST['mot_de_passe']);
   $ville = strip_tags($_POST['villes']);
- 
+  print_r($photo);
   $data =null;
-  inscription($db, $nom, $prenom,$photo,$email,$mot_de_passe,$ville);
+  inscription($db, $nom, $prenom,$photo,$email,$mot_de_passe,$ville,$photo);
 }
 
 if($requestMethod =='POST'&& $requestRessource == 'connexion'){
 
   $email = strip_tags($_POST['email']);
   $mot_de_passe = strip_tags($_POST['mot_de_passe']);
-  $request = "SELECT email FROM profil WHERE email ='".$email."' AND mot_de_passe = MD5('".$mot_de_passe."')";
+  $request = "SELECT mot_de_passe FROM profil WHERE email ='".$email."'";
   $statement = $db->prepare($request);
   $statement->execute();
   $tab = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $hashed_password = $tab[0]['mot_de_passe'];
   if (empty(session_id())) session_start();
-    if(empty($tab)){
+    if(password_verify($mot_de_passe, $hashed_password)) {
+      $_SESSION['profil'] = $email;
+      $data = $email;
+    } elseif(empty($data)){
       $_SESSION['profil'] = '';
       $data = null;
-    }else{
-      $_SESSION['profil'] = $email;
-      
-      $data = $email;
     }
 }
 if($requestMethod =='GET'&& $requestRessource == 'retour'){
 
   $profil = $_SESSION['profil'];
-  $request = "SELECT ville.nom as ville,ROUND(((DATEDIFF(NOW(), date_naissance))/365),0)as date_naissance,forme_sportive.texte,profil.nom,profil.prenom,notation_app_web FROM profil JOIN ville ON ville.insee=profil.insee left JOIN forme_sportive ON profil.texte=forme_sportive.texte WHERE email = '".$profil."'";
+  $request = "SELECT ville.nom as ville,ROUND(((DATEDIFF(NOW(), date_naissance))/365),0)as date_naissance,forme_sportive.texte,profil.nom,profil.prenom,notation_app_web,profil.photo, profil.date_naissance as date_n FROM profil JOIN ville ON ville.insee=profil.insee left JOIN forme_sportive ON profil.texte=forme_sportive.texte WHERE email = '".$profil."'";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -215,6 +215,7 @@ if($requestMethod =='POST'&& $requestRessource == 'liste_joueur_pour_match'){
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
+
 
   // Send data to the client.
   header('Content-Type: application/json; charset=utf-8');

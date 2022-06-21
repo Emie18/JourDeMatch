@@ -13,7 +13,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/ajax.js" defer></script>
     <script src="js/select.js" defer></script>
+    <script src="js/photo-dynamique.js" defer></script>
     <script src="js/ajouter.js" defer></script>
+   
 </head>
 
 <body>
@@ -49,10 +51,26 @@
                         <p class="text"> Ville :</p>
                         <select name="ville" id="villes" required>
                         </select>
-                        <p class="text text-p">Photo de profil :
+                        <p>Photo:
+                            <select id="photos-profil" onChange="photo2(this.value);" required>
+                                <option value="0">--photo--</option>
+                                <option value="1">blonde</option>
+                                <option value="2">blond</option>
+                                <option value="3">brune</option>
+                                <option value="4">chatain</option>
+                                <option value="5">lunette</option>
+                                <option value="6">moustachu</option>
+                                <option value="7">rousse</option>
+                                <option value="8">chauve</option>
+                                <option value="9">chauve</option>
+                            </select>
+                            <img id="photo" src="icone/profil.png">
+
+                        </p>
+                        <!-- <p class="text text-p">Photo de profil :
                             <label class="imp">importer<input type="file" class="insert_photo" id="photo"
                                     accept="image/png, image/jpeg"></label>
-                        </p>
+                        </p> -->
                         <p class="text">Email :</p>
                         <input type="text" pattern=".+@+.+" id="email" placeholder="mon.email@gmail.com" required>
                         <p class="text">Mot de passe :</p>
@@ -65,6 +83,7 @@
         <footer class="footer">
             <p>@ Copyright Emilie Le Rouzic</p>
         </footer>
+        
     </div>
 </body>
 
