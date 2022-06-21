@@ -18,27 +18,39 @@
 </head>
 
 <body>
+    <div class="affiche_notif" id="affiche_notif"></div>
     <div class="placement">
         <div class="div">
-
-            <label id="label1" for="toggle">☰ <h2 class="title">JDM</h2></label>
+            <div class="responsive">
+                <label for="toggle"><span>☰</span></label>
+                <h2 class="title">JDM</h2>
+                <a class="notif" id="notif"><img id='icone_notif' src="icone/notif_non.png"></a>
+            </div>
             <input type="checkbox" id="toggle">
             <div class="header">
-                <a class="liste_match" href="index.html">Liste des matchs</a>
+                <p>
+                    <a class="liste_match" href="index.html">Liste des matchs</a>
+                    <a class="liste_match" id="add_match" href="ajouter_un_match.html"><img src="icone/add.png"></a>
+                </p>
                 <h2 class="title">Jour De Match</h2>
-                <div class="btn_connexion"><a href="index.html" class="text-connexion">Retour</a></div>
+                <div class="btn_connexion">
+                    <a href="mes_matchs.html" class="liste_match">mes matchs</a>
+                    <a class="notif" id="notif2"><img id='icone_notif2' src="icone/notif_non.png"></a>
+                    <a href="profil.html" id="profil"><img src="icone/profil.png"></a>
+                    <a href="connexion.html" class="text-connexion">connexion</a>
+                </div>
             </div>
-            <div class="cc">
+            <div class="conteneur v2">
                 <div class="block_principale agrandir2" id="formulaire">
                     <h2>Ajouter un match</h2>
-                    <form >
+                    <form>
                         <p class="text">Titre :</p>
                         <input type="text" maxlength="25" id="titre" placeholder="match de ..." required>
                         <p class="text">Adresse :</p>
-                        <input type="text" id="adresse" placeholder="10 rue de ..."required>
+                        <input type="text" id="adresse" placeholder="10 rue de ..." required>
                         <p class="text"> Ville :</p>
-                            <select name="ville" id="villes" required>
-                            </select>
+                        <select name="ville" id="villes" required>
+                        </select>
 
                         <p class="text">Description:</p>
                         <input type="text-area" id="description" placeholder="descriptif du match" required>
@@ -51,18 +63,19 @@
                         <p class="text">Durée:</p>
                         <input type="time" id="duree" value="01:00" required>
                         <p class="text">Type de sport: </p>
-                            <select id="sports"required>
-                            </select>
-                        
-                            <p class="text">Prix:</p>
-                            <input type=number id="prix" min="0" step=0.01 requied>
-<p>
+                        <select id="sports" required>
+                        </select>
+
+                        <p class="text">Prix:</p>
+                        <input type=number id="prix" min="0" step=0.01 requied>
+                        <p>
                             <button class="btn_cc" type="submit" value="Ajouter">
                                 Ajouter
                             </button>
                         </p>
                     </form>
                 </div>
+
             </div>
         </div>
         <footer class="footer">

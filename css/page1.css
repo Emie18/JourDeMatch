@@ -76,6 +76,7 @@ body {
     text-decoration: none;
     color: #FFFFFF;
     margin-left:10px;
+    padding-right: 20px;
 }
 .header p {
     display:flex;
@@ -314,6 +315,10 @@ body {
     justify-content:center;
     padding-top: 100px;
     padding-bottom: 100px;
+    perspective: 800px;
+	perspective-origin: 50% 100px;
+
+
 }
 .conteneur_de_cartes a{
     margin-left: 1rem;

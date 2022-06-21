@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+    <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/page1.css">
     <link rel="stylesheet" type="text/css" href="css/connexion.css">
     <link rel="stylesheet" type="text/css" href="css/responsive.css">
-    <link rel="stylesheet" type="text/css" href="css/responsive_cc.css">
+    <link rel="stylesheet" type="text/css" href="css/mes_matchs.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/ajax.js" defer></script>
     <script src="js/select.js" defer></script>
-    <script src="js/ajouter.js" defer></script>
+    <script src="js/detail.js" defer></script>
+    <script src="js/mes_matchs.js" defer></script>
+    
+    
 </head>
-
 <body>
     <div class="affiche_notif" id="affiche_notif"></div>
     <div class="placement">
@@ -33,33 +34,19 @@
                 </p>
                 <h2 class="title">Jour De Match</h2>
                 <div class="btn_connexion">
+                    <a href="mes_matchs.html" id="mes_matchs" class="liste_match">mes matchs</a>
                     <a class="notif" id="notif2"><img id='icone_notif2' src="icone/notif_non.png"></a>
                     <a href="profil.html" id="profil"><img src="icone/profil.png"></a>
                     <a href="connexion.html" class="text-connexion">connexion</a>
                 </div>
             </div>
-            <div class="conteneur v2">
-                <div class="block_principale agrandir2" id="formulaire_inscription">
-                    <h2>Inscription</h2>
-                    <form>
-                        <p class="text">Nom :</p>
-                        <input type="text" id="nom" placeholder="Le Rouzic" required>
-                        <p class="text">Prénom :</p>
-                        <input type="text" id="prenom" placeholder="Emilie" required>
-                        <p class="text"> Ville :</p>
-                        <select name="ville" id="villes" required>
-                        </select>
-                        <p class="text text-p">Photo de profil :
-                            <label class="imp">importer<input type="file" class="insert_photo" id="photo"
-                                    accept="image/png, image/jpeg"></label>
-                        </p>
-                        <p class="text">Email :</p>
-                        <input type="text" pattern=".+@+.+" id="email" placeholder="mon.email@gmail.com" required>
-                        <p class="text">Mot de passe :</p>
-                        <input type="password" id="mot_de_passe" required>
-                        <p><input class="btn_cc" type="submit" value="s'inscrire"></p>
-                    </form>
-                </div>
+            <div class="conteneur conteneur2 ">
+                <h2 class="title2">Mes matchs</h2>
+                <h3 class="little-title">Prochains matchs</h3>
+                <div class="conteneur_de_cartes c2" id="cartesm"></div>
+                <h3 class="little-title">Matchs passés</h3>
+                <div class="conteneur_de_cartes c2" id="cartes2"></div>
+
             </div>
         </div>
         <footer class="footer">
@@ -67,5 +54,4 @@
         </footer>
     </div>
 </body>
-
 </html>

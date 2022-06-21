@@ -14,27 +14,44 @@
     <script src="js/connexion.js" defer></script>
 </head>
 <body>
-    <label for="toggle">☰ <h2 class="title">JDM</h2></label>
-    <input type="checkbox" id="toggle">
-    <div class="header">
-        <a class="liste_match" href="index.html">Liste des matchs</a>
-        <h2 class="title">Jour De Match</h2>
-        <div class="btn_connexion"><a href="index.html" class="text-connexion">Retour</a></div>
-    </div>
-    <div class="cc">
-        <div class="block_principale" id="connexion">
-            <h2>Connexion</h2>
-            <form>
-                <p class="text">Email :</p>
-                <input type="text" id="email" placeholder="mon.email@gmail.com">
-                <p class="text">Mot de passe :</p>
-                <input id="mot_de_passe" type="password">
-                <p id="erreur"></p>
-                <p><input class="btn_cc" type ="submit" id='btn' value="Connexion"></p>
-                <p><a href="inscription.html">Inscription</a></p>
-            </form>
+    <div class="placement">
+        <div class="div">
+            <div class="responsive">
+                <label for="toggle"><span>☰</span></label>
+                <h2 class="title">JDM</h2>
+                
+            </div>
+            <input type="checkbox" id="toggle">
+            <div class="header">
+                <p>
+                    <a class="liste_match" href="index.html">Liste des matchs</a>
+                    <a class="liste_match" id="add_match" href="ajouter_un_match.html"><img src="icone/add.png"></a>
+                </p>
+                <h2 class="title">Jour De Match</h2>
+                <div class="btn_connexion">
+        
+                    <a href="profil.html" id="profil"><img src="icone/profil.png"></a>
+                    <a href="connexion.html" class="text-connexion">connexion</a>
+                </div>
+            </div>
+            <div class="conteneur v2">
+                <div class="block_principale" id="connexion">
+                    <h2>Connexion</h2>
+                    <form>
+                        <p class="text">Email :</p>
+                        <input type="text" id="email" placeholder="mon.email@gmail.com">
+                        <p class="text">Mot de passe :</p>
+                        <input id="mot_de_passe" type="password">
+                        <p id="erreur"></p>
+                        <p><input class="btn_cc" type ="submit" id='btn' value="Connexion"></p>
+                        <p><a href="inscription.html">Inscription</a></p>
+                    </form>
+                </div>
+            </div>
         </div>
+        <footer class="footer">
+            <p>@ Copyright Emilie Le Rouzic</p>
+        </footer>
     </div>
-    <footer class="footer"><p>@ Copyright Emilie Le Rouzic</p></footer>
 </body>
 </html>

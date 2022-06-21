@@ -20,6 +20,11 @@ label,
         align-items: center;
 
     }
+    .carte.carte_agrandi{
+    
+        top:0;
+    }
+
     .responsive{
         display: flex;
         flex-direction: row;
@@ -182,7 +187,7 @@ label,
         align-items: center;
         width: 100%;
     }
-    .header .btn_connexion #notif,#profil{
+    .header .btn_connexion #notif,#profil,#mes_matchs{
         width: 80%;
         text-align: center;
         border-bottom: 2px solid rgba(255, 255, 255, 0.544);

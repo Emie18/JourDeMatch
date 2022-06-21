@@ -147,20 +147,13 @@ if($requestMethod =='POST'&& $requestRessource == 'connexion'){
 if($requestMethod =='GET'&& $requestRessource == 'retour'){
 
   $profil = $_SESSION['profil'];
-  $request = "SELECT ville.nom as ville,ROUND(((DATEDIFF(NOW(), date_naissance))/365),0)as date_naissance,forme_sportive.texte,profil.nom,profil.prenom,notation_app_web FROM profil JOIN ville ON ville.insee=profil.insee JOIN forme_sportive ON profil.texte=forme_sportive.texte WHERE email = '".$profil."'";
+  $request = "SELECT ville.nom as ville,ROUND(((DATEDIFF(NOW(), date_naissance))/365),0)as date_naissance,forme_sportive.texte,profil.nom,profil.prenom,notation_app_web FROM profil JOIN ville ON ville.insee=profil.insee left JOIN forme_sportive ON profil.texte=forme_sportive.texte WHERE email = '".$profil."'";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-  if(empty($result)){
-    $request = "SELECT ville.nom as ville,profil.nom,profil.prenom FROM profil
-                JOIN ville ON ville.insee=profil.insee 
-                WHERE email = 'bb@gmail.com'";
-    $statement = $db->prepare($request);
-    $statement->execute();
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-  }
+
   $data = $result;
- // $data = ;
+ 
 }
 if($requestMethod =='GET'&& $requestRessource == 'nb_match_joue'){
   $profil = $_SESSION['profil'];
@@ -184,6 +177,45 @@ if($requestMethod =='GET'&& $requestRessource == 'recherche_notif'){
   $data = $result;
 }
 
+if($requestMethod =='GET'&& $requestRessource == 'mes_matchs'){
+  $profil = $_SESSION['profil'];
+  $request ="SELECT titre,jeux.id_jeux as id_jeux, date, nb_joueurmax,
+  TIME_FORMAT(duree,'%Hh%i') as duree ,TIME_FORMAT(heure,'%Hh%i') as heure,
+  ville.nom,sport.type_sport,a_comme_statut.organisateur,a_comme_statut.joueur,
+  sport.icone,sport.image,(DATEDIFF(NOW(), date)) as jours from jeux 
+  JOIN a_comme_statut ON a_comme_statut.id_jeux=jeux.id_jeux 
+  JOIN ville ON ville.insee=jeux.insee 
+  JOIN sport ON sport.type_sport = jeux.type_sport 
+  WHERE a_comme_statut.email='".$profil."'";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+if($requestMethod =='POST'&& $requestRessource == 'detail'){
+  $id = strip_tags($_POST['id_jeux']);
+  $request ="SELECT id_jeux,description,jeux.equipe_a,jeux.equipe_b,
+jeux.prenom,jeux.nom,jeux.adresse,
+jeux.prix FROM jeux
+WHERE jeux.id_jeux=".$id;
+ $statement = $db->prepare($request);
+ $statement->execute();
+ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+ $data = $result;
+}
+if($requestMethod =='POST'&& $requestRessource == 'liste_joueur_pour_match'){
+  $id = strip_tags($_POST['id_jeux']);
+  $request="SELECT profil.nom, profil.prenom , profil.photo, jeux.id_jeux from  jeux 
+  JOIN a_comme_statut ON a_comme_statut.id_jeux=jeux.id_jeux
+  JOIN profil ON a_comme_statut.email = profil.email
+  WHERE a_comme_statut.joueur = 1
+  AND jeux.id_jeux = ".$id;
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+
   // Send data to the client.
   header('Content-Type: application/json; charset=utf-8');
   header('Cache-control: no-store, no-cache, must-revalidate');
@@ -192,3 +224,4 @@ if($requestMethod =='GET'&& $requestRessource == 'recherche_notif'){
   echo json_encode($data);
   exit;
 ?>
+        
