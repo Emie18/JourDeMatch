@@ -1,21 +1,39 @@
-$('#f').submit((event) =>
-  {
+/*Fichier de la fonction filtre*/
+//si le bouton filtre est cliqué
+
+$('#f').submit((event) => {
+    //On empêche le rechargement de la page web
     event.preventDefault();
-    let villes = document.getElementsByClassName('v');
-    let carte = document.getElementsByClassName('carte');
-    var element = document.getElementById('villes');
-    var ville_f = element.options[ element.selectedIndex ].text;
-    console.log('coucou');
-    let sports = document.getElementsByClassName('s');
-    var el = document.getElementById('sports');
-    var sport_f = el.options[ el.selectedIndex ].text;
-    //console.log( sport_f );
-    for (let i = 0; i <carte.length; i++){
-        if(villes[i].innerHTML==ville_f || sports[i].id==sport_f){
-            carte[i].style.display = 'flex';
-        }else{
-            carte[i].style.display = 'none';
-        }
+
+    //requete ajax qui renvoit la les information pour le filtre:
+    /*-- le nombre de jour par rapport à aujourd'hui, la ville,et le sport--*/
+    ajaxRequest('GET', 'php/request.php/elem_pour_filtre', filtre);
+
+    //callback de la requete ajax : c'est la fonction filtre
+    function filtre(data) {
+
+        //On recupère la ville selectionnée
+        var selecte_villes = document.getElementById('villes');
+        var ville_selectionne = selecte_villes.options[selecte_villes.selectedIndex].text;
+
+        //On recupère le sport selectionnée
+        var selecte_sport = document.getElementById('sports');
+        var sport_selectionne = selecte_sport.options[selecte_sport.selectedIndex].text;
+
+        //On recupère la prériode selectionnée
+        var selecte_periode = document.getElementById('nb_jour').value;
+
+        //On recupère la disponibilité selectionnée (complet, non complet)
+        var selecte_dispo = document.getElementById('dispo').value;
+
+        //Pour chaque match on fait regarde celle qui correspond aux donnée de la sélection
+        //et on les gardes celle qui ne corresponde pas on les éffaces de l'interface web
+        data.forEach((elem) => {
+            if ((elem['type_sport'] == sport_selectionne || sport_selectionne == "") && (elem['nom'] == ville_selectionne || ville_selectionne == "" && (parseInt(elem['jours']) >= parseInt(selecte_periode) || selecte_periode == 0)) && ((document.getElementById('banderole' + elem['id_jeux']).style.display == "block" && selecte_dispo == "complet") || (selecte_dispo == "noncomplet" && document.getElementById('banderole' + elem['id_jeux']).style.display == '') || (selecte_dispo == 0))) {
+                document.getElementById('c' + elem['id_jeux']).style.display = 'flex';
+            } else {
+                document.getElementById('c' + elem['id_jeux']).style.display = 'none';
+            }
+        })
     }
-}
-);
+});

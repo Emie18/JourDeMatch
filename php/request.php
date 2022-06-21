@@ -62,7 +62,7 @@ if($requestMethod =='GET'&& $requestRessource == 'cartes'){
       $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
-if($requestMethod =='GET'&& $requestRessource == 'nb_joueur'){
+if($requestMethod =='GET'&& $requestRessource == 'get_id_jeux'){
   $sql= "SELECT id_jeux FROM jeux";
   $sta= $db->prepare($sql);
   $sta->execute();
@@ -103,7 +103,21 @@ if($requestMethod =='POST'&& $requestRessource == 'ajouter_carte'){
   $nb = strip_tags($_POST['nb']);
   $prix = strip_tags($_POST['prix']);
   $data =null;
-  dbAddTweet($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb,$prix);
+  // $request = "INSERT into jeux (titre,adresse,insee,description,date,heure,duree,type_sport,nb_joueurmax,prix)Values('" . $titre . "','" . $adresse . "','" . $villes . "','" . $description . "','" . $date . "','" . $heure . "','" . $duree . "','" . $sports . "'," . $nb . "," . $prix . ")";
+  // $statement = $db->prepare($request);
+  // $statement->execute();
+  // //print_r($request);
+  // $request = "SELECT id_jeux FROM jeux order by id_jeux DESC LIMIT 1";
+  // $statement = $db->prepare($request);
+  // $statement->execute();
+  // $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+  // $id_jeux = $result[0]['id_jeux'];
+  // $re = "INSERT into a_comme_statut (id_jeux,email,organisateur,joueur)Values('" . $id_jeux . "','" . $_SESSION['profil'] . "',1,0)";
+  // $st = $db->prepare($re);
+  // $st->execute();
+  //print_r($re);
+  ajouter_jeux($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb,$prix);
 }
 if($requestMethod =='POST'&& $requestRessource == 'modif_profil'){
   $villes = strip_tags($_POST['villes']);
@@ -166,11 +180,11 @@ if($requestMethod =='GET'&& $requestRessource == 'nb_match_joue'){
 
 if($requestMethod =='GET'&& $requestRessource == 'recherche_notif'){
   $profil = $_SESSION['profil'];
-  $request = "SELECT profil.prenom,profil.nom, jeux.titre, a_comme_statut.email as organisateur FROM demande 
+  $request = "SELECT profil.prenom,profil.nom,profil.email as demandeur, jeux.titre, a_comme_statut.email as organisateur, jeux.id_jeux FROM demande 
   JOIN jeux ON jeux.id_jeux=demande.id_jeux 
   JOIN profil ON profil.email = demande.email 
   JOIN a_comme_statut ON a_comme_statut.id_jeux = demande.id_jeux
-  WHERE a_comme_statut.organisateur=1 AND a_comme_statut.email='".$profil."'";
+  WHERE a_comme_statut.organisateur=1 AND demande.accepter = 0 AND a_comme_statut.email='".$profil."'";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -216,6 +230,52 @@ if($requestMethod =='POST'&& $requestRessource == 'liste_joueur_pour_match'){
   $data = $result;
 }
 
+if($requestMethod =='GET'&& $requestRessource == 'elem_pour_filtre'){
+ 
+  $request ="SELECT titre, id_jeux, ville.nom, sport.type_sport, DATEDIFF(jeux.date,NOW())as jours
+  FROM jeux
+  JOIN sport ON sport.type_sport=jeux.type_sport
+  JOIN ville ON ville.insee=jeux.insee";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+if($requestMethod =='POST'&& $requestRessource == 'demande'){
+  $id = strip_tags($_POST['id_jeux']);
+  $profil = $_SESSION['profil'];
+  
+  $request="INSERT INTO `demande` (`id_jeux`, `email`, `accepter`) VALUES ('".$id."', '".$profil."', '0')";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+if($requestMethod =='GET'&& $requestRessource == 'recherche_demande'){
+  $profil = $_SESSION['profil'];
+  $request ="SELECT * from demande WHERE email ='".$profil."'";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+if($requestMethod =='POST'&& $requestRessource == 'validation_demande'){
+  $profil = $_SESSION['profil'];
+  $demandeur = strip_tags($_POST['email']);
+  $id = strip_tags($_POST['id']);
+  if($demandeur == $profil){
+    $request ="UPDATE `a_comme_statut` SET `joueur` = '1' WHERE `a_comme_statut`.`id_jeux` = '".$id."' AND `a_comme_statut`.`email` = '".$profil."';";
+  }else{
+    $request ="INSERT INTO `a_comme_statut` (`id_jeux`, `email`, `organisateur`, `joueur`) VALUES ('".$id."', '".$demandeur."', '0', '1')";
+  }
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $request ="UPDATE `demande` SET `accepter` = '1' WHERE `demande`.`id_jeux` = '".$id."' AND email = '".$demandeur."';";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  // $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+   $data = "oui";
+}
 
   // Send data to the client.
   header('Content-Type: application/json; charset=utf-8');
@@ -225,4 +285,3 @@ if($requestMethod =='POST'&& $requestRessource == 'liste_joueur_pour_match'){
   echo json_encode($data);
   exit;
 ?>
-        

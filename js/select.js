@@ -1,67 +1,93 @@
-ajaxRequest('GET', 'php/request.php/header',affiche_header);
-function affiche_header(data){
-    if(data==""){
-        document.getElementById('add_match').style.display="none";
-        document.getElementById('profil').style.display="none";
-        document.getElementById('notif').style.display="none";
-        document.getElementById('notif2').style.display="none";
+/* Fichier contenant des requetes ajax et leur callback*/
+/*Liste des requete du fichier:
+    header ->affiche_header
+    villes ->affiche_liste_villes
+    sports ->affiche_liste_sports
+    forme ->affiche_liste_forme
+    cartes ->affiche_liste_cartes
+    get_id_jeux ->affiche_nb_joueur
+    nb_joueur2 ->affiche_nb_joueur2
+*/
+//fonction qui va afficher si on est connecté les liens vers
+//les pages web qu'ils ont le droit d'accès.
+//La requete ajax renvoit rien si on est pas connecté
+ajaxRequest('GET', 'php/request.php/header', affiche_header);
+function affiche_header(data) {
+    if (data == "") {
+        document.getElementById('add_match').style.display = "none";
+        document.getElementById('profil').style.display = "none";
+        document.getElementById('notif').style.display = "none";
+        document.getElementById('notif2').style.display = "none";
 
-    }else{
-        document.getElementById('add_match').style.display="block";
-        document.getElementById('profil').style.display="block";
-        document.getElementById('notif').style.display="block";
-        document.getElementById('notif2').style.display="block";
+    } else {
+        document.getElementById('add_match').style.display = "block";
+        document.getElementById('profil').style.display = "block";
+        document.getElementById('notif').style.display = "block";
+        document.getElementById('notif2').style.display = "block";
     }
 }
 
+//requete ajax qui vas renmplir le select ayant pour id: villes
 ajaxRequest('GET', 'php/request.php/villes', affiche_liste_villes);
-function affiche_liste_villes(data){
-
-     //var sel = document.getElementById('villes');
+function affiche_liste_villes(data) {
+    //pour chaque ville
     data.forEach(elem => {
-    let opt = document.createElement('option');
-    opt.value = elem.insee;
-    opt.textContent += elem.nom // or opt.innerHTML += user.name
-    $('#villes').append(opt);
-        // console.log(element.nom);
+        //je crée un élément <option>
+        let opt = document.createElement('option');
+        //je lui donne une valeur: (insee)
+        opt.value = elem.insee;
+        //puis je remplis sont text: (nom de la ville)
+        opt.textContent += elem.nom
+        //enfin je l'ajoute au <select>
+        $('#villes').append(opt);
     });
 }
 
+//requete ajax qui vas renmplir le select ayant pour id: sports
 ajaxRequest('GET', 'php/request.php/sports', affiche_liste_sports);
-function affiche_liste_sports(data){
-
-   // var sel = document.getElementById('sports');
-   data.forEach(elem => {
-   let opt = document.createElement('option');
-   opt.value = elem.type_sport;
-   opt.textContent += elem.type_sport // or opt.innerHTML += user.name
-   $('#sports').append(opt);
-       // console.log(element.nom);
-   });
-}
-ajaxRequest('GET', 'php/request.php/forme', affiche_liste_forme);
-function affiche_liste_forme(data){
-
-    //var sel = document.getElementById('formes');
-   data.forEach(elem => {
-   let opt = document.createElement('option');
-   opt.value = elem.texte;
-   opt.textContent += elem.texte // or opt.innerHTML += user.name
-   $('#formes').append(opt);
-       // console.log(element.nom);
-   });
-}
-ajaxRequest('GET', 'php/request.php/cartes', affiche_liste_cartes);
-function affiche_liste_cartes(data){
-
+function affiche_liste_sports(data) {
+    //pour chaque sport
     data.forEach(elem => {
-        //console.log(elem);
-       let a = document.createElement('a');
-       let id = 0;
-        a.innerHTML =`
-        
+        //je crée un élément <option>
+        let opt = document.createElement('option');
+        //je lui donne la même valeur et le même texte: ex(football)
+        opt.value = elem.type_sport;
+        opt.textContent += elem.type_sport;
+        //enfin je l'ajoute au <select>
+        $('#sports').append(opt);
+    });
+}
+
+//requete ajax qui vas renmplir le select ayant pour id: formes
+ajaxRequest('GET', 'php/request.php/forme', affiche_liste_forme);
+function affiche_liste_forme(data) {
+    //pour chaque forme sportive
+    data.forEach(elem => {
+        //je crée un élément <option>
+        let opt = document.createElement('option');
+        //je lui donne la même valeur et le même texte: ex(Débutant)
+        opt.value = elem.texte;
+        opt.textContent += elem.texte;
+        //enfin je l'ajoute au <select>
+        $('#formes').append(opt);
+    });
+}
+
+//requete ajax qui vas renmplir le div ayant pour id: cartes
+ajaxRequest('GET', 'php/request.php/cartes', affiche_liste_cartes);
+function affiche_liste_cartes(data) {
+    //Pour chaque matchs
+    data.forEach(elem => {
+        //je crée un élément <a>
+        let a = document.createElement('a');
+        //j'initialise la variable id à 0
+        let id = 0;
+        //Je remplis mon <a> avec les éléments nécessaires
+        //à la création d'une carte
+        a.innerHTML = `
         <img class="image_principale" src="${elem.image}">
         <div id="banderole${elem.id_jeux}"class="banderol_complet">Complet</div>
+        <p class="demande_envoyer" id="demande${elem.id_jeux}"></p>
         <div class="imagej" id="img${elem.id_jeux}"></div>
         <h3>${elem.titre}</h3>
         <div class="info" id="info">
@@ -84,58 +110,87 @@ function affiche_liste_cartes(data){
                 <p class="lieu" id="equipe${elem.id_jeux}"></p>
                 <p class="lieu" id="meilleur_joueur${elem.id_jeux}"></p>
             </div>
-    
+            <div class="btn_participer" id="btn_participer${elem.id_jeux}"><input type="button" class="btn_pp" onclick=participer(${elem.id_jeux}) value="Participer"><div>
         </div>
         `
-
-        a.className='carte';
+        //j'ajoute la class "carte" à mon <a> pour le css (la mise en page)
+        a.className = 'carte';
+        //je luis donne un lien vide
         a.href = '#';
-        a.id= 'c'+elem['id_jeux'];
-        id=elem['id_jeux'];
-        let click =0;
-        a.onclick= function(e) {
-            e.preventDefault(); 
-            click +=1
+        //puis un id conrespondant à la lettre 'c' plus l'id du match
+        a.id = 'c' + elem['id_jeux'];
+        //je donne à ma variable id la valeur de l'id du match
+        id = elem['id_jeux'];
 
-            if(click%2){
-                a.className='carte carte_agrandi';
-                
+        //Variable pour compter le nombre de click sur mon <a>
+        let click = 0;
+        //j'ajoute à mon <a> un évènement s'il est cliqué
+        a.onclick = function (e) {
+            //j'empêche le page de remonter lors de mon click
+            e.preventDefault();
+            //incrémentation de click
+            click += 1
+            //Si le click est impaire
+            if (click % 2) {
+                //j'ajoute la class "carte_agrandi",
+                //Elle va agrandir en css la carte pour, avoir la place d'afficher les détails
+                a.className = 'carte carte_agrandi';
+                //appel à la fonction détail pour afficher les détails de chaque match
                 detail(id);
-            }else{
-                a.className='carte';
+            } else {
+                //Si Click est paire 
+                //je retire la classe "carte_agrandi"
+                a.className = 'carte';
+                //je supprime les détails
                 supp_detail(id);
-           }
+            }
 
         };
-   $('#cartes').append(a);
-       // console.log(element.nom);
-   });
+        // pour finir j'ajoute mon <a> dans le div ayant pour id: cartes
+        $('#cartes').append(a);
+    });
 }
 
-ajaxRequest('GET', 'php/request.php/nb_joueur', affiche_nb_joueur);
-function affiche_nb_joueur(data){
-    for(a in data){
-        ajaxRequest('POST', 'php/request.php/nb_joueur2', affiche_nb_joueur2,'id_jeux=' + data[a]['id_jeux']);
-         //console.log(data[a]['id_jeux']);
+//requete ajax pour recupérer les id des matchs
+ajaxRequest('GET', 'php/request.php/get_id_jeux', affiche_nb_joueur);
+function affiche_nb_joueur(data) {
+    //pour chaque match
+    for (a in data) {
+        //requete ajax pour compter le nombre de joueur du match
+        ajaxRequest('POST', 'php/request.php/nb_joueur2', affiche_nb_joueur2, 'id_jeux=' + data[a]['id_jeux']);
     }
-   
+
 }
-function affiche_nb_joueur2(data){
-   // console.log(data);
+
+//fonction pour affichier le nombre de joueur inscrits du match
+function affiche_nb_joueur2(data) {
+    //création de l'élément <span>
     let span = document.createElement('span');
+    //Dans le <span> je met le nombre de joueur inscrits du match
     span.innerHTML = data[0]['nb'];
-    let ii = "#"+data[0]['id'].toString();
+    //Variable pour recupérer l'id du match et en faire un id (html)
+    let ii = "#" + data[0]['id'].toString();
+    //dans n je met le nombre de joueur max contenu dans l'id : ii créé précedement
     let n = $(ii).html();
-    if (n!=null){
-    n=n.replace('/','');
-    n=parseInt(n);
-    n2= parseInt(data[0]['nb'])
-    if(n==n2)
-    document.getElementById('banderole'+data[0]['id'].toString()).style.display="block";
-    //$('#banderole').style.display="none";
-    let p = document.getElementById(data[0]['id'].toString());
-    if(p!=null)
-    p.insertBefore(span, p.firstChild);
+    //si n existe
+    if (n != null) {
+        //Conversion en chiffre de n (nombre max) et n2 (contient le nombre d'inscrits)
+        n = n.replace('/', '');
+        n = parseInt(n);
+        n2 = parseInt(data[0]['nb'])
+
+        //si le nombre max = le nombre d'inscrits
+        if (n == n2) {
+            //j'affiche la banderole complet sur la carte contenant le match
+            document.getElementById('banderole' + data[0]['id'].toString()).style.display = "block";
+            //si c'est complet alors j'enlève la bonton participer
+            if (document.getElementById('btn_participer' + data[0]['id'].toString()))
+                document.getElementById('btn_participer' + data[0]['id'].toString()).style.display = "none";
+        }
+
+        // Enfin j'ajoute le nombre de joueur inscrits dans la page wed
+        let p = document.getElementById(data[0]['id'].toString());
+        if (p != null)
+            p.insertBefore(span, p.firstChild);
     }
-    //document.getElementById(id.toString()).innerHTML="${data['nb']}";
 }

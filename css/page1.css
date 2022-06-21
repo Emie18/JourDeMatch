@@ -292,8 +292,30 @@ body {
     color: #3C096C;
 
 }
-
-
+.carte .demande_envoyer{
+    color: rgb(171, 34, 183);
+    font-weight: 700;
+    font-size: 30px;
+    position: relative;
+    top: 40%;
+    z-index: 1;
+    height: fit-content;
+    text-shadow: 1px 1px 1px white;
+}
+.carte div.btn_participer{
+    display: none;
+}
+.carte.carte_agrandi div.btn_participer{
+    display:block;
+    
+}
+.btn_pp{
+    padding: 3px;
+    border-radius: 10px;
+    background: #3c096c94;
+    color: #ffffffcf;
+    border: 3px solid #ffffffb8;
+}
 .carte .info .lieu img {
     position: relative;
     margin-right: 5px;

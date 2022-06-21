@@ -15,6 +15,7 @@
     <script src="js/select.js" defer></script>
     <script src="js/filtre.js" defer></script>
     <script src="js/notif.js" defer></script>
+    <script src="js/participer.js" defer></script>
 </head>
 
 <body>
@@ -51,9 +52,9 @@
                     <p> Période :
                         <select name="nb_jour" id="nb_jour" >
                             <option value=0></option>
-                            <option value=7>+7 jours</option>
-                            <option value=15>+15 jours</option>
-                            <option value=30>+30 jours</option>
+                            <option value=7 >+7 jours</option>
+                            <option value=15 >+15 jours</option>
+                            <option value=30 >+30 jours</option>
                         </select>
                     </p>
                     <p> Sport :
@@ -62,7 +63,7 @@
                         </select>
                     </p>
                     <p> dispo :
-                        <select name="dispo" class="dispo" aria-placeholder="complet">
+                        <select name="dispo" class="dispo" id="dispo" aria-placeholder="complet">
                             <option value=0></option>
                             <option value="complet">complet</option>
                             <option value="noncomplet">non complet</option>
