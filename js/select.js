@@ -1,5 +1,5 @@
 /* Fichier contenant des requetes ajax et leur callback*/
-/*Liste des requete du fichier:
+/*Liste des requetes du fichier:
     header ->affiche_header
     villes ->affiche_liste_villes
     sports ->affiche_liste_sports
@@ -11,19 +11,31 @@
 //fonction qui va afficher si on est connecté les liens vers
 //les pages web qu'ils ont le droit d'accès.
 //La requete ajax renvoit rien si on est pas connecté
-ajaxRequest('GET', 'php/request.php/header', affiche_header);
-function affiche_header(data) {
-    if (data == "") {
-        document.getElementById('add_match').style.display = "none";
-        document.getElementById('profil').style.display = "none";
-        document.getElementById('notif').style.display = "none";
-        document.getElementById('notif2').style.display = "none";
 
+
+function affiche_header(data) {
+let bouton_de_connexion=document.getElementsByClassName('text-connexion');
+    if (data[0]['profil'] == "") {
+        $('#add_match').hide();
+        $('#mes_matchs').hide();
+        $('#profil').hide();
+        $('#notif').hide();
+        $('#notif2').hide();
+        bouton_de_connexion[0].innerHTML='connexion';
+        data.forEach((elem)=>{
+            console.log(data);
+            $('#btn_participer'+elem['id_jeux']).hide();
+        });
+        bouton_de_connexion[0].href='connexion.html';
     } else {
-        document.getElementById('add_match').style.display = "block";
-        document.getElementById('profil').style.display = "block";
-        document.getElementById('notif').style.display = "block";
-        document.getElementById('notif2').style.display = "block";
+        $( ".btn_pp" ).css( "display", "flex" );
+        $('#add_match').show();
+        $('#profil').show();
+        $('#notif').show();
+        $('#notif2').show();
+        $('#mes_matchs').show();
+        bouton_de_connexion[0].innerHTML='';
+        bouton_de_connexion[0].href='';
     }
 }
 
@@ -71,6 +83,21 @@ function affiche_liste_forme(data) {
         //enfin je l'ajoute au <select>
         $('#formes').append(opt);
     });
+}
+//requete ajax qui vas renmplir le select ayant pour id: joueur_match
+ajaxRequest('GET', 'php/request.php/joueur_match/', affiche_joueurs);
+function affiche_joueurs(data){
+  //pour chaque ville
+  data.forEach(elem => {
+    //je crée un élément <option>
+    let opt = document.createElement('option');
+    //je lui donne une valeur: (email)
+    opt.value = elem.email;
+    //puis je remplis sont text: (nom et prenom du joueur)
+    opt.textContent += elem.nom + ' ' + elem.prenom;
+    //enfin je l'ajoute au <select>
+    $('#joueur_match').append(opt);
+});
 }
 
 //requete ajax qui vas renmplir le div ayant pour id: cartes
@@ -150,7 +177,8 @@ function affiche_liste_cartes(data) {
         $('#cartes').append(a);
     });
 }
-
+//requete decalée pour enlever le bouton participer
+ajaxRequest('GET','php/request.php/header', affiche_header)
 //requete ajax pour recupérer les id des matchs
 ajaxRequest('GET', 'php/request.php/get_id_jeux', affiche_nb_joueur);
 function affiche_nb_joueur(data) {
@@ -194,3 +222,5 @@ function affiche_nb_joueur2(data) {
             p.insertBefore(span, p.firstChild);
     }
 }
+
+

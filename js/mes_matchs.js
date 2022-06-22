@@ -1,10 +1,11 @@
+//Fichier contenant la fonction permettant d'afficher les matchs
+//d'un utilisateur.
 ajaxRequest('GET', 'php/request.php/mes_matchs', affiche_mes_matchs);
-function affiche_mes_matchs(data){
+function affiche_mes_matchs(data) {
     data.forEach(elem => {
-        //console.log(elem);
-       let a = document.createElement('a');
-       let id = 0;
-        a.innerHTML =`
+        let a = document.createElement('a');
+        let id = 0;
+        a.innerHTML = `
         <div class="org_jou">
         <p class="organisateur${elem.organisateur}">organisateur</p>
         <p class="joueur${elem.joueur}">joueur</p>
@@ -33,34 +34,29 @@ function affiche_mes_matchs(data){
                 <p class="lieu" id="equipe${elem.id_jeux}"></p>
                 <p class="lieu" id="meilleur_joueur${elem.id_jeux}"></p>
             </div>
-    
+            <div class="btn_participer"><input class="f${elem.organisateur}" type="button" class="btn_pp" onclick=modif_match(${elem.id_jeux}) value="modifier"><div>
         </div>
         `
-
-        a.className='carte';
+        a.className = 'carte';
         a.href = '#';
-        a.id= 'c'+elem['id_jeux'];
-        id=elem['id_jeux'];
-        let click =0;
-        a.onclick= function(e) {
-            e.preventDefault(); 
-            click +=1
-
-            if(click%2){
-                a.className='carte carte_agrandi';
-                
+        a.id = 'c' + elem['id_jeux'];
+        id = elem['id_jeux'];
+        let click = 0;
+        a.onclick = function (e) {
+            e.preventDefault();
+            click += 1
+            if (click % 2) {
+                a.className = 'carte carte_agrandi';
                 detail(id);
-            }else{
-                a.className='carte';
+            } else {
+                a.className = 'carte';
                 supp_detail(id);
-           }
-
+            }
         };
-        if(elem['jours']<0){
+        if (elem['jours'] < 0) {
             $('#cartesm').append(a);
-        }else{
+        } else {
             $('#cartes2').append(a);
         }
-
-       });
+    });
 }

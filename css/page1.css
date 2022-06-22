@@ -307,7 +307,6 @@ body {
 }
 .carte.carte_agrandi div.btn_participer{
     display:block;
-    
 }
 .btn_pp{
     padding: 3px;
@@ -315,6 +314,7 @@ body {
     background: #3c096c94;
     color: #ffffffcf;
     border: 3px solid #ffffffb8;
+    width: fit-content;
 }
 .carte .info .lieu img {
     position: relative;
@@ -345,4 +345,7 @@ body {
 .conteneur_de_cartes a{
     margin-left: 1rem;
     margin-bottom: 1rem;
+}
+.autoUpdate {
+    display: none;
 }

@@ -54,10 +54,7 @@ function ajouter_jeux($db, $titre, $adresse, $villes, $description, $date, $heur
 }
 function connexion($db, $email, $mot_de_passe, $tab)
 {
-  //foreach ($tab as $key => $elem) {
-    //if ($email == $elem['email'] && $mot_de_passe == $elem['mot_de_passe']) {
 
-      //print('oui');
       print_r($tab[0]['email']);
     if($tab['email']!=""){
       
@@ -65,10 +62,8 @@ function connexion($db, $email, $mot_de_passe, $tab)
     } else {
       
     }
-  //}
   return null;
 }
-    //return null;
 
 function modif_profil($db, $profil, $villes,$date_n,$formes,$note,$photo){
   $request = "UPDATE profil SET insee =".$villes." , date_naissance = '".$date_n."', notation_app_web = ".$note.", texte = '".$formes."', photo ='".$photo."' WHERE email = '".$profil."'";
@@ -84,8 +79,8 @@ function inscription($db, $nom, $prenom,$photo,$email,$mot_de_passe,$ville)
     echo $hashed_password;
     $request = "INSERT into profil (nom,prenom,photo,email,mot_de_passe,insee)Values('".$nom."','".$prenom."','".$photo."','".$email."', '".$hashed_password."',".$ville.")";
     $statement = $db->prepare($request);
-     $statement->execute();
-      print_r($request);
+    $statement->execute();
+    print_r($request);
   }
   catch (PDOException $exception)
   {
@@ -93,6 +88,26 @@ function inscription($db, $nom, $prenom,$photo,$email,$mot_de_passe,$ville)
     return false;
   }
   return true;
+}
+
+function modifier_jeux($db, $titre, $adresse, $villes, $description, $date, $duree, $heure, $sports, $nb, $prix, $equipe_a, $equipe_b, $nom,$prenom,$id)
+{
+  if($equipe_a!=NULL){
+  $request = "UPDATE `jeux` SET `titre` = '".$titre."', `adresse` = '".$adresse."', `description` = '".$description."' ,
+   `nb_joueurmax` = '".$nb."', `prix` = '".$prix."', `date` = '".$date."', `duree` = '".$duree."',
+    `heure` = '".$heure."', `type_sport` = '".$sports."', `insee` = '".$villes."',
+     `equipe_a` = '".$equipe_a."', `equipe_b` = '".$equipe_b."', `nom` = '".$nom."', `prenom` = '".$prenom."'
+     WHERE `jeux`.`id_jeux` = ".$id."; ";
+  }else{
+    $request = "UPDATE `jeux` SET `titre` = '".$titre."', `adresse` = '".$adresse."', `description` = '".$description."' ,
+    `nb_joueurmax` = '".$nb."', `prix` = '".$prix."', `date` = '".$date."', `duree` = '".$duree."',
+     `heure` = '".$heure."', `type_sport` = '".$sports."', `insee` = '".$villes."',
+      `equipe_a` = NULL, `equipe_b` = NULL, `nom` = NULL, `prenom` = NULL
+      WHERE `jeux`.`id_jeux` = ".$id."; ";
+  }
+  $statement = $db->prepare($request);
+       $statement->execute();
+       print_r($request);
 }
 
 ?>

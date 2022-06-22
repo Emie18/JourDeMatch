@@ -30,9 +30,9 @@ $('#f').submit((event) => {
         //et on les gardes celle qui ne corresponde pas on les éffaces de l'interface web
         data.forEach((elem) => {
             if ((elem['type_sport'] == sport_selectionne || sport_selectionne == "") && (elem['nom'] == ville_selectionne || ville_selectionne == "" && (parseInt(elem['jours']) >= parseInt(selecte_periode) || selecte_periode == 0)) && ((document.getElementById('banderole' + elem['id_jeux']).style.display == "block" && selecte_dispo == "complet") || (selecte_dispo == "noncomplet" && document.getElementById('banderole' + elem['id_jeux']).style.display == '') || (selecte_dispo == 0))) {
-                document.getElementById('c' + elem['id_jeux']).style.display = 'flex';
+                $('#c'+ elem['id_jeux']).show();
             } else {
-                document.getElementById('c' + elem['id_jeux']).style.display = 'none';
+                $('#c'+ elem['id_jeux']).hide();
             }
         })
     }

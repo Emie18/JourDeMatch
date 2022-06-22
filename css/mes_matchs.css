@@ -45,6 +45,16 @@
     background:#ffffff6e;
     position: relative;
 }
+.f1{
+    padding: 3px;
+    border-radius: 10px;
+    background: #3c096c94;
+    color: #ffffffcf;
+    border: 3px solid #ffffffb8;
+}
+.f0{
+    display:none;
+}
 .conteneur2 .carte .org_jou{
     position: absolute;
     top: -18px;

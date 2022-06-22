@@ -39,3 +39,5 @@ $('#formulaire_inscription').submit((event) =>
     document.getElementById('formulaire_inscription').appendChild(d);
   }
 );
+
+

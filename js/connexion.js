@@ -8,9 +8,7 @@ function is_c(data){
   console.log(data);
   if(data!=null){
     window.location.href = "index.html";
-    //console.log(data);
   }else{
     $('#erreur').html('mot de passe ou email erroné !')
   }
-
 }

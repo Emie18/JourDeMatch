@@ -1,5 +1,7 @@
+ //Fichier contenant les fonctions pour envoyer une demande 
+ //de participation à un match et affiche à l'utilisateur
+ //si sa demande à été envoyée ou acceptée.
 function participer(id){
-    console.log('c'+id);
     $('#demande'+id).html('demande envoyer !');
     ajaxRequest('POST', 'php/request.php/demande/',null, 'id_jeux=' + id);
 }
@@ -14,5 +16,5 @@ function affiche_demande_envoyee(data){
         }
         document.getElementById('btn_participer'+elem['id_jeux']).style.display='none';
     })
-   
+
 }

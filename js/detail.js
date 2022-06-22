@@ -31,7 +31,3 @@ function affiche_detail_liste_joueur(data){
         console.log(img_joueur);
     })
 }
-
-$('quitter').onclick = function(){
-    console.log('coucou');
-}

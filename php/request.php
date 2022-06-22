@@ -17,20 +17,28 @@
   $request = explode('/', $request);
   $requestRessource = array_shift($request);
 
+if ($requestMethod == 'GET' && $requestRessource == 'header') {
 
-
-  
-if($requestMethod =='GET'&& $requestRessource == 'header'){
- $data = $_SESSION['profil'];
+  $request = 'Select id_jeux, date as profil from jeux 
+  WHERE DATEDIFF(NOW(),date) <=0';
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  if (!isset($_SESSION['profil']) || $_SESSION['profil'] == " ") {
+    foreach ($result as $row => $value) {
+      $result[$row]['profil'] = "";
+    }
+  } else {
+    foreach ($result as $row) {
+      $row['profil'] = $_SESSION['profil'];
+    }
+  }
+  $data = $result;
 }
-
-// if($requestMethod =='GET'&& $requestRessource == 'profil'){
-//   $request = 'SELECT * FROM profil';
-//       $statement = $db->prepare($request);
-//       $statement->execute();
-//       $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-//   $data = $result;
-// }
+if($requestMethod =='POST'&& $requestRessource == 'enregistre_id_match'){
+  $_SESSION['id']=strip_tags($_POST['id']);
+  $data = $_SESSION['id'];
+ }
 
 if($requestMethod =='GET'&& $requestRessource == 'villes'){
   $request = 'SELECT * FROM ville order by nom limit 20';
@@ -56,7 +64,12 @@ if($requestMethod =='GET'&& $requestRessource == 'sports'){
 }
 
 if($requestMethod =='GET'&& $requestRessource == 'cartes'){
-  $request = 'Select id_jeux ,titre,nb_joueurmax,date,TIME_FORMAT(duree,"%Hh%i") as duree,date,TIME_FORMAT(heure,"%Hh%i") as heure,ville.nom,sport.icone,sport.image,sport.type_sport from jeux JOIN sport ON sport.type_sport = jeux.type_sport JOIN ville ON ville.insee=jeux.insee';
+  $request = 'Select id_jeux ,titre,nb_joueurmax,date,TIME_FORMAT(duree,"%Hh%i") as duree,date,
+  TIME_FORMAT(heure,"%Hh%i") as heure,ville.nom,
+  sport.icone,sport.image,sport.type_sport from jeux 
+  JOIN sport ON sport.type_sport = jeux.type_sport 
+  JOIN ville ON ville.insee=jeux.insee
+  WHERE DATEDIFF(NOW(),date) <=0';
       $statement = $db->prepare($request);
       $statement->execute();
       $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -103,20 +116,6 @@ if($requestMethod =='POST'&& $requestRessource == 'ajouter_carte'){
   $nb = strip_tags($_POST['nb']);
   $prix = strip_tags($_POST['prix']);
   $data =null;
-  // $request = "INSERT into jeux (titre,adresse,insee,description,date,heure,duree,type_sport,nb_joueurmax,prix)Values('" . $titre . "','" . $adresse . "','" . $villes . "','" . $description . "','" . $date . "','" . $heure . "','" . $duree . "','" . $sports . "'," . $nb . "," . $prix . ")";
-  // $statement = $db->prepare($request);
-  // $statement->execute();
-  // //print_r($request);
-  // $request = "SELECT id_jeux FROM jeux order by id_jeux DESC LIMIT 1";
-  // $statement = $db->prepare($request);
-  // $statement->execute();
-  // $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-  // $id_jeux = $result[0]['id_jeux'];
-  // $re = "INSERT into a_comme_statut (id_jeux,email,organisateur,joueur)Values('" . $id_jeux . "','" . $_SESSION['profil'] . "',1,0)";
-  // $st = $db->prepare($re);
-  // $st->execute();
-  //print_r($re);
   ajouter_jeux($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb,$prix);
 }
 if($requestMethod =='POST'&& $requestRessource == 'modif_profil'){
@@ -154,11 +153,16 @@ if($requestMethod =='POST'&& $requestRessource == 'connexion'){
       $_SESSION['profil'] = $email;
       $data = $email;
     } elseif(empty($data)){
-      $_SESSION['profil'] = '';
+      $_SESSION['profil'] = ' ';
       $data = null;
     }
 }
-if($requestMethod =='GET'&& $requestRessource == 'retour'){
+if($requestMethod =='GET'&& $requestRessource == 'deconnexion'){
+
+    $_SESSION['profil']=" ";
+
+}
+if($requestMethod =='GET'&& $requestRessource == 'profil_detail'){
 
   $profil = $_SESSION['profil'];
   $request = "SELECT ville.nom as ville,ROUND(((DATEDIFF(NOW(), date_naissance))/365),0)as date_naissance,forme_sportive.texte,profil.nom,profil.prenom,notation_app_web,profil.photo, profil.date_naissance as date_n FROM profil JOIN ville ON ville.insee=profil.insee left JOIN forme_sportive ON profil.texte=forme_sportive.texte WHERE email = '".$profil."'";
@@ -235,7 +239,8 @@ if($requestMethod =='GET'&& $requestRessource == 'elem_pour_filtre'){
   $request ="SELECT titre, id_jeux, ville.nom, sport.type_sport, DATEDIFF(jeux.date,NOW())as jours
   FROM jeux
   JOIN sport ON sport.type_sport=jeux.type_sport
-  JOIN ville ON ville.insee=jeux.insee";
+  JOIN ville ON ville.insee=jeux.insee
+  WHERE DATEDIFF(NOW(),date) <=0";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -273,9 +278,93 @@ if($requestMethod =='POST'&& $requestRessource == 'validation_demande'){
   $request ="UPDATE `demande` SET `accepter` = '1' WHERE `demande`.`id_jeux` = '".$id."' AND email = '".$demandeur."';";
   $statement = $db->prepare($request);
   $statement->execute();
-  // $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-   $data = "oui";
+   $data = null;
 }
+if($requestMethod =='POST'&& $requestRessource == 'refuser_demande'){
+  $profil = $_SESSION['profil'];
+  $demandeur = strip_tags($_POST['email']);
+  $id = strip_tags($_POST['id']);
+  $request ="DELETE FROM `demande` WHERE `demande`.`id_jeux` = '".$id."' AND email = '".$demandeur."';";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $data = $request;
+}
+
+if($requestMethod == 'POST' && $requestRessource == 'modifier_carte'){
+  $titre = strip_tags($_POST['titre']);
+  $adresse = strip_tags($_POST['adresse']);
+  $villes= strip_tags($_POST['villes']);
+  $description = strip_tags($_POST['description']);
+  $date = strip_tags($_POST['date']);
+  $duree = strip_tags($_POST['duree']);
+  $heure = strip_tags($_POST['heure']);
+  $sports = strip_tags($_POST['sports']);
+  $nb = strip_tags($_POST['nb']);
+  $prix = strip_tags($_POST['prix']);
+  if($_POST['nb_equipe_a']==""){
+    $equipe_a= NULL;
+    $equipe_b= NULL;
+    $nom = NULL;
+    $prenom = NULL;
+  }else{
+    $equipe_a = strip_tags($_POST['nb_equipe_a']);
+    $equipe_b = strip_tags($_POST['nb_equipe_b']);
+    $joueur_match = strip_tags($_POST['joueur_match']);
+    $sql= "SELECT profil.nom, profil.prenom FROM profil WHERE email = '".$joueur_match."'";
+    $sta= $db->prepare($sql);
+    $sta->execute();
+    $res = $sta->fetchAll(PDO::FETCH_ASSOC);
+    $nom = $res[0]['nom'];
+    $prenom = $res[0]['prenom'];
+  }
+
+  $data = null;
+  modifier_jeux($db, $titre, $adresse, $villes, $description, $date, $duree, $heure,
+   $sports, $nb, $prix, $equipe_a, $equipe_b, $nom,$prenom,$_SESSION['id']);
+}
+
+if($requestMethod == 'GET' && $requestRessource == 'joueur_match'){
+  $request ="SELECT profil.email, profil.nom, profil.prenom from profil JOIN a_comme_statut ON a_comme_statut.email=profil.email WHERE a_comme_statut.id_jeux = ".$_SESSION['id']." AND a_comme_statut.joueur=1";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+
+if ($requestMethod == 'GET' && $requestRessource == 'ancienne_information') {
+  $request = "SELECT jeux.titre,jeux.insee,jeux.date, jeux.description, jeux.prix, jeux.nb_joueurmax, ville.nom, sport.type_sport,jeux.adresse, heure, duree
+   from jeux JOIN ville ON ville.insee= jeux.insee
+   JOIN sport ON sport.type_sport = jeux.type_sport
+   WHERE jeux.id_jeux ='" . $_SESSION['id'] . "'";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+
+if ($requestMethod == 'POST' && $requestRessource == 'modif_mot_de_passe') {
+  $request = "SELECT mot_de_passe FROM profil WHERE email ='".$_SESSION['profil']."'";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $tab = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $hashed_password = $tab[0]['mot_de_passe'];
+  $mot_de_passe = strip_tags($_POST['ancien_mot_de_passe']);
+  //print_r($request);
+  if(password_verify($mot_de_passe, $hashed_password)) {
+    
+    $nouveau_mot_de_passe = strip_tags($_POST['nouveau_mot_de_passe']);
+    $hashed_password = password_hash($nouveau_mot_de_passe, PASSWORD_BCRYPT);
+    $request = "UPDATE profil SET mot_de_passe ='".$hashed_password."' WHERE email ='".$_SESSION['profil']."'";
+    $statement = $db->prepare($request);
+    $statement->execute();
+    $data = "oui";
+    } else{
+      $data = "non";
+    }
+
+  //$data = $request;
+}
+
 
   // Send data to the client.
   header('Content-Type: application/json; charset=utf-8');
