@@ -1,22 +1,23 @@
-@media all and (max-width: 991px)
-{
-   .block_principale{
-        width:fit-content;
-        padding-left: 30px;
-        padding-right: 30px;
+@media all and (max-width: 991px) {
+   .block_principale {
+      width: fit-content;
+      padding-left: 30px;
+      padding-right: 30px;
    }
-   .block_principale form{
-        width: fit-content;
- }
- .block_principale input{
-    width: 80%;
 
- }
- 
- .block_principale .text{
+   .block_principale form {
+      width: fit-content;
+   }
 
-    margin-left:15%;
+   .block_principale input {
+      width: 80%;
 
-}
+   }
+
+   .block_principale .text {
+
+      margin-left: 15%;
+
+   }
 
 }

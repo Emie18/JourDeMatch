@@ -1,6 +1,16 @@
-//Fichier contenant la fonction permettant d'afficher les matchs
-//d'un utilisateur.
+/*---------------------------------
+Fichier: mes_match.js
+contenant la fonction pour afficher
+les matchs du profil
+@Auteurs: Le Rouzic Emilie
+    &     Maïel Madec
+@Ecole: ISEN Yncréa Ouest
+@Date de création: juin-2022
+-----------------------------------*/
+//requête pour récupérer les matchs du profil
 ajaxRequest('GET', 'php/request.php/mes_matchs', affiche_mes_matchs);
+
+//fonction pour afficher les matchs du profil
 function affiche_mes_matchs(data) {
     data.forEach(elem => {
         let a = document.createElement('a');

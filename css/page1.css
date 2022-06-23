@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Kalam:wght@300&family=Varela+Round&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -13,10 +14,14 @@ body {
     background: #5A189A;
     position: relative;
 }
-#add_match,#profil,#notif{
+
+#add_match,
+#profil,
+#notif {
     display: none;
 }
-.affiche_notif{
+
+.affiche_notif {
     position: absolute;
     top: 58px;
     left: 70%;
@@ -32,20 +37,22 @@ body {
     z-index: 1;
     display: none;
 }
-.notif_img{
+
+.notif_img {
     width: 40px;
-    margin:20px;
-    position:relative;
-}
-.div{
-    width: 100%;
-   margin-bottom: 20px;
+    margin: 20px;
+    position: relative;
 }
 
-.placement{
+.div {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.placement {
 
     display: flex;
-   height: 100%;
+    height: 100%;
     flex-direction: column;
 
     flex-wrap: nowrap;
@@ -53,48 +60,52 @@ body {
     justify-content: space-between;
 
     align-content: space-around;
- 
+
     align-items: flex-start;
 }
+
 .header {
 
     height: 60px;
     background: #3C096C;
-   display:flex;
-   justify-content: space-between;
-   align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.responsive{
-    display:none;
+
+.responsive {
+    display: none;
 }
+
 .liste_match {
-    /* Liste des matchs */
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
     text-decoration: none;
     color: #FFFFFF;
-    margin-left:10px;
+    margin-left: 10px;
     padding-right: 20px;
 }
+
 .header p {
-    display:flex;
+    display: flex;
     align-items: center;
 }
+
 .header img {
-    margin-right:10px;
+    margin-right: 10px;
     width: 40px;
     height: 100%;
     top: -15px;
     opacity: 0.8;
 }
+
 .text-connexion {
-    /* Connexion */
     background: #5A189A;
     border-radius: 5px;
-    padding:5px;
-    margin-right:10px;
+    padding: 5px;
+    margin-right: 10px;
     align-items: center;
     color: #FFFFFF;
     text-decoration: none;
@@ -102,31 +113,31 @@ body {
     font-weight: 700;
     font-size: 16px;
 }
-.text-connexion:hover{
-    transform: scale( 1.1);
+
+.text-connexion:hover {
+    transform: scale(1.1);
 }
+
 .title {
-    /* Jour De Match */
     font-style: normal;
     font-family: 'Kalam', cursive;
     font-weight: 500;
     font-size: 56.1067px;
     color: #FFFFFF;
-    position:sticky;
+    position: sticky;
 }
 
 .conteneur {
     margin-top: 2rem;
     margin-bottom: 2rem;
     position: relative;
-    max-width:100%;
-    height:150%;
+    max-width: 100%;
+    height: 150%;
     background: #7B2CBF;
 }
 
 .footer {
-    /* position:fixed; */
-    position:absolute;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -139,14 +150,6 @@ body {
     color: #E0AAFF;
 
 }
-/* .footer::after {
-    position: absolute;
-    content: "";
-    width: 100%;
-    top:-50px;
-    height: 50px;
-    background: #5A189A;
-} */
 
 .filtre .filtre-titre {
 
@@ -159,7 +162,7 @@ body {
 }
 
 .filtre {
-     position: relative;
+    position: relative;
     display: flex;
     flex-wrap: nowrap;
     width: 90%;
@@ -173,10 +176,12 @@ body {
     color: #FFFFFF;
 
 }
-.btn_connexion{
+
+.btn_connexion {
     display: flex;
     align-items: center;
 }
+
 .filtre p {
     margin-left: 10px;
 }
@@ -188,15 +193,15 @@ body {
 .filtre .btn_filtrer {
     background: #5A189A;
     padding: 5px 10px 5px 10px;
-    
-    top:-5px;
+    top: -5px;
     border-radius: 5px;
     color: #FFFFFF;
     border: solid 3px #9D4EDD;
 
 }
-.filtre .btn_filtrer:hover{
-    transform: scale( 1.1);
+
+.filtre .btn_filtrer:hover {
+    transform: scale(1.1);
 }
 
 .carte {
@@ -210,10 +215,12 @@ body {
     border: 4px solid rgba(255, 255, 255, 0.49);
     border-radius: 10px;
 }
-.carte:hover{
-    transform: scale( 1.1);
+
+.carte:hover {
+    transform: scale(1.1);
     border: 4px solid #3C096C;
 }
+
 .carte::before {
     position: absolute;
     content: "";
@@ -231,7 +238,6 @@ body {
     top: 100px;
     clip-path: polygon(100% 0%, 82% 49%, 100% 100%, 0 100%, 0% 50%, 0 0);
     background: rgba(255, 255, 255, 0.49);
-
     font-style: normal;
     font-weight: 700;
     font-size: 10px;
@@ -266,7 +272,7 @@ body {
     right: 0px;
     width: 50%;
     height: 93%;
-    top:10px
+    top: 10px
 }
 
 .carte .info .logo {
@@ -281,7 +287,6 @@ body {
 .carte .info .lieu {
     position: relative;
     max-width: 100px;
-    /*overflow: hidden;*/
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
@@ -292,7 +297,8 @@ body {
     color: #3C096C;
 
 }
-.carte .demande_envoyer{
+
+.carte .demande_envoyer {
     color: rgb(171, 34, 183);
     font-weight: 700;
     font-size: 30px;
@@ -302,13 +308,16 @@ body {
     height: fit-content;
     text-shadow: 1px 1px 1px white;
 }
-.carte div.btn_participer{
+
+.carte div.btn_participer {
     display: none;
 }
-.carte.carte_agrandi div.btn_participer{
-    display:block;
+
+.carte.carte_agrandi div.btn_participer {
+    display: block;
 }
-.btn_pp{
+
+.btn_pp {
     padding: 3px;
     border-radius: 10px;
     background: #3c096c94;
@@ -316,6 +325,7 @@ body {
     border: 3px solid #ffffffb8;
     width: fit-content;
 }
+
 .carte .info .lieu img {
     position: relative;
     margin-right: 5px;
@@ -325,27 +335,30 @@ body {
     opacity: 0.8;
 }
 
-.carte .info .date_heure{
+.carte .info .date_heure {
     margin: 1rem;
 }
-.carte .info .date_heure p{
-    margin-top:5px;
+
+.carte .info .date_heure p {
+    margin-top: 5px;
 }
-.conteneur_de_cartes{
-    display:flex;
+
+.conteneur_de_cartes {
+    display: flex;
     flex-wrap: wrap;
-    justify-content:center;
+    justify-content: center;
     padding-top: 100px;
     padding-bottom: 100px;
     perspective: 800px;
-	perspective-origin: 50% 100px;
-
+    perspective-origin: 50% 100px;
 
 }
-.conteneur_de_cartes a{
+
+.conteneur_de_cartes a {
     margin-left: 1rem;
     margin-bottom: 1rem;
 }
+
 .autoUpdate {
     display: none;
 }

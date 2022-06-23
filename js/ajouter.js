@@ -1,4 +1,15 @@
+/*---------------------------------
+Fichier: ajouter.js
+contenant les requêtes ajax
+en lien avec l'ajout dans la
+base de donnée
+@Auteurs: Le Rouzic Emilie
+    &     Maïel Madec
+@Ecole: ISEN Yncréa Ouest
+@Date de création: juin-2022
+-----------------------------------*/
 
+//Creation d'un match
 $('#formulaire').submit((event) =>
   {
     event.preventDefault();
@@ -14,16 +25,7 @@ $('#formulaire').submit((event) =>
   }
 );
 
-$('#modif_p').submit((event) =>
-  {
-    event.preventDefault();
-    let photo = document.getElementById('photo').src;
-    ajaxRequest('POST', 'php/request.php/modif_profil/',null, 'villes=' + $('#villes').val() + '&date_n=' + $('#date_n').val()+ '&formes=' + $('#formes').val()+ '&note=' + $('#note').val()+ '&photo=' + photo);
-    document.getElementById('retour').innerHTML="Retour";
-    document.getElementById('btn_m').style.display="none";
-  }
-);
-
+//ajouter un nouveau profil
 $('#formulaire_inscription').submit((event) =>
   {
     event.preventDefault();
@@ -44,5 +46,17 @@ $('#formulaire_inscription').submit((event) =>
 
   }
 );
+
+//Modification d'un profil
+$('#modif_p').submit((event) =>
+  {
+    event.preventDefault();
+    let photo = document.getElementById('photo').src;
+    ajaxRequest('POST', 'php/request.php/modif_profil/',null, 'villes=' + $('#villes').val() + '&date_n=' + $('#date_n').val()+ '&formes=' + $('#formes').val()+ '&note=' + $('#note').val()+ '&photo=' + photo);
+    document.getElementById('retour').innerHTML="Retour";
+    document.getElementById('btn_m').style.display="none";
+  }
+);
+
 
 

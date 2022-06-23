@@ -1,6 +1,11 @@
-/*Fichier de la fonction filtre*/
-//si le bouton filtre est cliqué
-
+/*---------------------------------
+Fichier: filtre.js
+contenant la fonction gérant le filtre
+@Auteurs: Le Rouzic Emilie
+    &     Maïel Madec
+@Ecole: ISEN Yncréa Ouest
+@Date de création: juin-2022
+-----------------------------------*/
 $('#f').submit((event) => {
     //On empêche le rechargement de la page web
     event.preventDefault();

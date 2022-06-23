@@ -1,16 +1,15 @@
 <?php
-/**
- * @Author: Thibault Napoléon <Imothep>
- * @Company: ISEN Yncréa Ouest
- * @Email: thibault.napoleon@isen-ouest.yncrea.fr
- * @Created Date: 22-Jan-2018 - 14:18:14
- * @Last Modified: 29-Jan-2018 - 21:25:26
- */
-
-  // Database constants.
+/*---------------------------------
+Fichier: constants.php
+contenant les constantes
+de connexion à la base de donnée
+@Auteurs: Le Rouzic Emilie
+    &     Maïel Madec
+@Ecole: ISEN Yncréa Ouest
+@Date de création: juin-2022
+-----------------------------------*/
   define('DB_USER', 'root');
   define('DB_PASSWORD', '');
   define('DB_NAME', 'jour_de_match');
   define('DB_SERVER', 'localhost');
-
 ?>

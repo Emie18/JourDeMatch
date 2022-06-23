@@ -1,15 +1,13 @@
 .conteneur2 .title2 {
-    
     font-weight: 700;
     font-size: 36px;
     line-height: 19px;
-    display:flex;
+    display: flex;
     justify-content: center;
-    
-    height:fit-content;
+    height: fit-content;
     text-align: center;
     color: #FFFFFF;
-   padding-top: 20px;
+    padding-top: 20px;
 }
 
 .conteneur2 .little-title {
@@ -23,69 +21,73 @@
 }
 
 
-.conteneur2 .little-title::after{
-    content:"";
+.conteneur2 .little-title::after {
+    content: "";
     display: inline-block;
     height: 50%;
     vertical-align: center;
-    width:95%;
+    width: 95%;
     border-top: 1px solid white;
 }
 
-.conteneur2 .carte .joueur1 , .organisateur1{
+.conteneur2 .carte .joueur1,
+.organisateur1 {
     width: fit-content;
     height: fit-content;
     font-size: 12px;
     padding: 2px;
     margin-left: 3px;
     border-radius: 5px;
-   
     color: rgba(94, 21, 105, 0.776);
-   
-    background:#ffffff6e;
+    background: #ffffff6e;
     position: relative;
 }
-.f1{
+
+.f1 {
     padding: 3px;
     border-radius: 10px;
     background: #3c096c94;
     color: #ffffffcf;
     border: 3px solid #ffffffb8;
 }
-.f0{
-    display:none;
+
+.f0 {
+    display: none;
 }
-.conteneur2 .carte .org_jou{
+
+.conteneur2 .carte .org_jou {
     position: absolute;
     top: -18px;
-    display:flex;
+    display: flex;
     flex-direction: row;
 }
 
-.joueur0, .organisateur0{
-    display:none;
+.joueur0,
+.organisateur0 {
+    display: none;
 }
 
-.carte_agrandi{
+.carte_agrandi {
 
-    width:500px;
-    height:300px;
-    top:-50px;
-    
-    transition: width 0.5s ease-in-out,height 0.5s ease-in-out;
+    width: 500px;
+    height: 300px;
+    top: -50px;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
+
 .carte {
-    transition: width 0.5s ease-in-out,height 0.5s ease-in-out;
-    /* transition: height 1s ease-in-out, width 0.5s ease-in;
-    transition-delay: height 0.5s, width 0s; */
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
 }
-.carte:hover.carte_agrandi{
+
+.carte:hover.carte_agrandi {
     transform: none;
 }
+
 .carte.carte_agrandi .info .lieu {
-    max-width:100%
+    max-width: 100%
 }
-.carte.carte_agrandi .imagej{
+
+.carte.carte_agrandi .imagej {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -94,82 +96,67 @@
     height: 100px;
     top: 40%;
     position: absolute;
-    overflow-y:scroll;
+    overflow-y: scroll;
 }
-.carte.carte_agrandi .image_principale{
-  
+
+.carte.carte_agrandi .image_principale {
 
     transform: translateX(50px);
 
 }
 
-.imagej img{
+.imagej img {
     width: 30px;
     margin-left: 10px;
 
 }
 
-.imagej p{
+.imagej p {
 
     align-items: flex-start;
- 
     display: flex;
-  
     flex-direction: row;
-
     flex-wrap: wrap;
- 
     justify-content: flex-start;
-
     align-content: flex-start;
-
     align-items: flex-start;
-    margin: 5px;height:35px;
+    margin: 5px;
+    height: 35px;
 }
 
-.imagej span{
+.imagej span {
     color: #FFFFFF;
     font-size: 8px;
-   text-align: center;
-    /* display:block;
-    background: rgb(106, 43, 110);
-   
     text-align: center;
-    /* max-width: 23px; */
-    /* position: relative;
-    margin-left: 20%;
-    margin-top: 10%;
-    width: fit-content;
-    border-radius: 50%;
-    padding: 5px; */ 
 }
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
     border-radius: 50%;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     background: #f1f1f18c;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: rgba(99, 44, 108, 0.689);
     -webkit-border-radius: 10px;
     border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(85, 85, 85, 0.542); 
-  }
-
-  @media (max-width: 991px){
-.conteneur_de_cartes.c2 {
-    padding-top: 59px;
 }
-  }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 0.542);
+}
+
+@media (max-width: 991px) {
+    .conteneur_de_cartes.c2 {
+        padding-top: 59px;
+    }
+}

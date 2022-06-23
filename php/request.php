@@ -1,8 +1,15 @@
 <?php
-
+/*------------------------
+Fichier: request.php
+contenant toutes les requêtes.
+@Auteurs: Le Rouzic Emilie
+    &     Maïel Madec
+@Ecole: ISEN Yncréa Ouest
+@Date de création: juin-2022
+----------------------------*/
   require_once('database.php');
   if (empty(session_id())) session_start();
-  // Database connexion.
+  // connexion à la base de donnée
   $db = dbConnect();
   if (!$db)
   {
@@ -10,15 +17,13 @@
     exit;
   }
 
-  // Check the request.
   $requestMethod = $_SERVER['REQUEST_METHOD'];
-  //les get ?url
   $request = substr($_SERVER['PATH_INFO'], 1);
   $request = explode('/', $request);
   $requestRessource = array_shift($request);
 
+//Requête pour le header savoir si on est connecté
 if ($requestMethod == 'GET' && $requestRessource == 'header') {
-
   $request = 'Select id_jeux, date as profil from jeux 
   WHERE DATEDIFF(NOW(),date) <=0';
   $statement = $db->prepare($request);
@@ -35,79 +40,86 @@ if ($requestMethod == 'GET' && $requestRessource == 'header') {
   }
   $data = $result;
 }
-if($requestMethod =='POST'&& $requestRessource == 'enregistre_id_match'){
-  $_SESSION['id']=strip_tags($_POST['id']);
+
+//Requête pour enregistrer l'id du match
+if ($requestMethod == 'POST' && $requestRessource == 'enregistre_id_match') {
+  $_SESSION['id'] = strip_tags($_POST['id']);
   $data = $_SESSION['id'];
- }
+}
 
-if($requestMethod =='GET'&& $requestRessource == 'villes'){
-  $request = 'SELECT * FROM ville order by nom limit 20';
-      $statement = $db->prepare($request);
-      $statement->execute();
-      $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+//Requête sql pour récupérer toutes les villes
+if ($requestMethod == 'GET' && $requestRessource == 'villes') {
+  $request = 'SELECT * FROM ville order by nom ';
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
-if($requestMethod =='GET'&& $requestRessource == 'forme'){
+
+//Requête sql pour récupérer toutes les formes sportive
+if ($requestMethod == 'GET' && $requestRessource == 'forme') {
   $request = 'SELECT * FROM forme_sportive';
-      $statement = $db->prepare($request);
-      $statement->execute();
-      $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
 
-if($requestMethod =='GET'&& $requestRessource == 'sports'){
+//Requête sql pour récupérer tous les sports
+if ($requestMethod == 'GET' && $requestRessource == 'sports') {
   $request = 'SELECT * FROM sport order by type_sport';
-      $statement = $db->prepare($request);
-      $statement->execute();
-      $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
 
-if($requestMethod =='GET'&& $requestRessource == 'cartes'){
+//Requête sql pour récupérer les informations principale des prochains matchs
+if ($requestMethod == 'GET' && $requestRessource == 'cartes') {
   $request = 'Select id_jeux ,titre,nb_joueurmax,date,TIME_FORMAT(duree,"%Hh%i") as duree,date,
   TIME_FORMAT(heure,"%Hh%i") as heure,ville.nom,
   sport.icone,sport.image,sport.type_sport from jeux 
   JOIN sport ON sport.type_sport = jeux.type_sport 
   JOIN ville ON ville.insee=jeux.insee
   WHERE DATEDIFF(NOW(),date) <=0';
-      $statement = $db->prepare($request);
-      $statement->execute();
-      $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
-if($requestMethod =='GET'&& $requestRessource == 'get_id_jeux'){
-  $sql= "SELECT id_jeux FROM jeux";
-  $sta= $db->prepare($sql);
+
+//Requête sql pour récupérer tous les id des matchs
+if ($requestMethod == 'GET' && $requestRessource == 'get_id_jeux') {
+  $sql = "SELECT id_jeux FROM jeux";
+  $sta = $db->prepare($sql);
   $sta->execute();
   $res = $sta->fetchAll(PDO::FETCH_ASSOC);
-  
   $data = $res;
 }
-if($requestMethod =='POST'&& $requestRessource == 'nb_joueur2'){
-  $id = strip_tags($_POST['id_jeux']);
 
-    $request = "SELECT COUNT(profil.email) as nb, a_comme_statut.id_jeux as id from profil JOIN a_comme_statut ON a_comme_statut.email=profil.email WHERE a_comme_statut.id_jeux = ".$id." AND a_comme_statut.joueur=1";
-    $statement = $db->prepare($request);
-    $statement->execute();
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-    //$data = $result;
-    foreach ($result as $key => $val){
-      //$data = $val['id'];
-      if($val['id']==null){
-        $result[$key]['id']= $id;
-        $result[$key]['nb']= 0;
-        
-      }
-     
+//Requête sql pour compter le nombre de joueur du match
+if ($requestMethod == 'POST' && $requestRessource == 'nb_joueur2') {
+  $id = strip_tags($_POST['id_jeux']);
+  $request = "SELECT COUNT(profil.email) as nb, a_comme_statut.id_jeux as id from profil
+    JOIN a_comme_statut ON a_comme_statut.email=profil.email
+    WHERE a_comme_statut.id_jeux = " . $id . " AND a_comme_statut.joueur=1";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  foreach ($result as $key => $val) {
+    if ($val['id'] == null) {
+      $result[$key]['id'] = $id;
+      $result[$key]['nb'] = 0;
     }
-     $data=$result;
+  }
+  $data = $result;
 }
 
- 
-if($requestMethod =='POST'&& $requestRessource == 'ajouter_carte'){
+//Requête pour ajouter un match
+if ($requestMethod == 'POST' && $requestRessource == 'ajouter_carte') {
   $titre = strip_tags($_POST['titre']);
   $adresse = strip_tags($_POST['adresse']);
-  $villes= strip_tags($_POST['villes']);
+  $villes = strip_tags($_POST['villes']);
   $description = strip_tags($_POST['description']);
   $date = strip_tags($_POST['date']);
   $duree = strip_tags($_POST['duree']);
@@ -115,116 +127,133 @@ if($requestMethod =='POST'&& $requestRessource == 'ajouter_carte'){
   $sports = strip_tags($_POST['sports']);
   $nb = strip_tags($_POST['nb']);
   $prix = strip_tags($_POST['prix']);
-  $data =null;
-  ajouter_jeux($db, $titre, $adresse,$villes,$description,$date,$heure,$duree,$sports,$nb,$prix);
+  $data = null;
+  ajouter_jeux($db, $titre, $adresse, $villes, $description, $date, $heure, $duree, $sports, $nb, $prix);
 }
-if($requestMethod =='POST'&& $requestRessource == 'modif_profil'){
+
+//Requête pour modifier les détails du profil
+if ($requestMethod == 'POST' && $requestRessource == 'modif_profil') {
   $villes = strip_tags($_POST['villes']);
   $date_n = strip_tags($_POST['date_n']);
-  $formes= strip_tags($_POST['formes']);
+  $formes = strip_tags($_POST['formes']);
   $note = strip_tags($_POST['note']);
   $photo = strip_tags($_POST['photo']);
   $data = $photo;
-  modif_profil($db, $_SESSION['profil'], $villes,$date_n,$formes,$note,$photo);
+  modif_profil($db, $_SESSION['profil'], $villes, $date_n, $formes, $note, $photo);
 }
-if($requestMethod =='POST'&& $requestRessource == 'inscription'){
+
+//Requête sql pour s'inscrire
+if ($requestMethod == 'POST' && $requestRessource == 'inscription') {
   $nom = strip_tags($_POST['nom']);
   $prenom = strip_tags($_POST['prenom']);
-  $photo= strip_tags($_POST['photo']);
+  $photo = strip_tags($_POST['photo']);
   $email = strip_tags($_POST['email']);
   $mot_de_passe = strip_tags($_POST['mot_de_passe']);
   $ville = strip_tags($_POST['villes']);
   print_r($photo);
-  $data =null;
-  inscription($db, $nom, $prenom,$photo,$email,$mot_de_passe,$ville,$photo);
+  $data = null;
+  inscription($db, $nom, $prenom, $photo, $email, $mot_de_passe, $ville, $photo);
 }
 
-if($requestMethod =='POST'&& $requestRessource == 'connexion'){
-
+//Requête pour se connecter
+if ($requestMethod == 'POST' && $requestRessource == 'connexion') {
   $email = strip_tags($_POST['email']);
   $mot_de_passe = strip_tags($_POST['mot_de_passe']);
-  $request = "SELECT mot_de_passe FROM profil WHERE email ='".$email."'";
+  $request = "SELECT mot_de_passe FROM profil WHERE email ='" . $email . "'";
   $statement = $db->prepare($request);
   $statement->execute();
   $tab = $statement->fetchAll(PDO::FETCH_ASSOC);
-  if(!empty($tab)){
-  $hashed_password = $tab[0]['mot_de_passe'];
-  if (empty(session_id())) session_start();
-    if(password_verify($mot_de_passe, $hashed_password)) {
+  if (!empty($tab)) {
+    $hashed_password = $tab[0]['mot_de_passe'];
+    if (empty(session_id())) session_start();
+    if (password_verify($mot_de_passe, $hashed_password)) {
       $_SESSION['profil'] = $email;
       $data = $email;
-    } elseif(empty($data)){
+    } elseif (empty($data)) {
       $_SESSION['profil'] = ' ';
       $data = null;
     }
-  } else{
+  } else {
     $data = null;
   }
 }
-if($requestMethod =='GET'&& $requestRessource == 'deconnexion'){
 
-    $_SESSION['profil']=" ";
-
+//Requête pour se deconnecter (mettre le profil vide)
+if ($requestMethod == 'GET' && $requestRessource == 'deconnexion') {
+  $_SESSION['profil'] = " ";
 }
-if($requestMethod =='GET'&& $requestRessource == 'profil_detail'){
 
+//Requête sql pour récupérer les détails du profil
+if ($requestMethod == 'GET' && $requestRessource == 'profil_detail') {
   $profil = $_SESSION['profil'];
-  $request = "SELECT ville.nom as ville,ROUND(((DATEDIFF(NOW(), date_naissance))/365),0)as date_naissance,forme_sportive.texte,profil.nom,profil.prenom,notation_app_web,profil.photo, profil.date_naissance as date_n FROM profil JOIN ville ON ville.insee=profil.insee left JOIN forme_sportive ON profil.texte=forme_sportive.texte WHERE email = '".$profil."'";
-  $statement = $db->prepare($request);
-  $statement->execute();
-  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-  $data = $result;
- 
-}
-if($requestMethod =='GET'&& $requestRessource == 'nb_match_joue'){
-  $profil = $_SESSION['profil'];
-  $request = "SELECT COUNT(a_comme_statut.id_jeux)as nb_jouee from jeux JOIN a_comme_statut ON a_comme_statut.id_jeux=jeux.id_jeux WHERE a_comme_statut.email = '".$profil."' AND (DATEDIFF(NOW(), date))>0";
+  $request = "SELECT ville.nom as ville,ville.insee,ROUND(((DATEDIFF(NOW(), date_naissance))/365),0)as date_naissance,
+  forme_sportive.texte,profil.nom,profil.prenom,notation_app_web,profil.photo,
+   profil.date_naissance as date_n FROM profil JOIN ville ON ville.insee=profil.insee 
+   left JOIN forme_sportive ON profil.texte=forme_sportive.texte WHERE email = '" . $profil . "'";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
 
-if($requestMethod =='GET'&& $requestRessource == 'recherche_notif'){
+//Requête sql pour récupérer le nombre de match joué du profil
+if ($requestMethod == 'GET' && $requestRessource == 'nb_match_joue') {
   $profil = $_SESSION['profil'];
-  $request = "SELECT profil.prenom,profil.nom,profil.email as demandeur, jeux.titre, a_comme_statut.email as organisateur, jeux.id_jeux FROM demande 
+  $request = "SELECT COUNT(a_comme_statut.id_jeux)as nb_jouee from jeux 
+  JOIN a_comme_statut ON a_comme_statut.id_jeux=jeux.id_jeux 
+  WHERE a_comme_statut.email = '" . $profil . "' AND (DATEDIFF(NOW(), date))>0";
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
+}
+
+//Requête sql pour récupérer les notifications du profil
+if ($requestMethod == 'GET' && $requestRessource == 'recherche_notif') {
+  $profil = $_SESSION['profil'];
+  $request = "SELECT profil.prenom,profil.nom,profil.email as demandeur,
+  jeux.titre, a_comme_statut.email as organisateur, jeux.id_jeux FROM demande 
   JOIN jeux ON jeux.id_jeux=demande.id_jeux 
   JOIN profil ON profil.email = demande.email 
   JOIN a_comme_statut ON a_comme_statut.id_jeux = demande.id_jeux
-  WHERE a_comme_statut.organisateur=1 AND demande.accepter = 0 AND a_comme_statut.email='".$profil."'";
+  WHERE a_comme_statut.organisateur=1 AND demande.accepter = 0 AND a_comme_statut.email='" . $profil . "'";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
 
-if($requestMethod =='GET'&& $requestRessource == 'mes_matchs'){
+//Requête sql pour récupérer la liste des matchs du profil
+if ($requestMethod == 'GET' && $requestRessource == 'mes_matchs') {
   $profil = $_SESSION['profil'];
-  $request ="SELECT titre,jeux.id_jeux as id_jeux, date, nb_joueurmax,
+  $request = "SELECT titre,jeux.id_jeux as id_jeux, date, nb_joueurmax,
   TIME_FORMAT(duree,'%Hh%i') as duree ,TIME_FORMAT(heure,'%Hh%i') as heure,
   ville.nom,sport.type_sport,a_comme_statut.organisateur,a_comme_statut.joueur,
   sport.icone,sport.image,(DATEDIFF(NOW(), date)) as jours from jeux 
   JOIN a_comme_statut ON a_comme_statut.id_jeux=jeux.id_jeux 
   JOIN ville ON ville.insee=jeux.insee 
   JOIN sport ON sport.type_sport = jeux.type_sport 
-  WHERE a_comme_statut.email='".$profil."'";
+  WHERE a_comme_statut.email='" . $profil . "'";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
-if($requestMethod =='POST'&& $requestRessource == 'detail'){
+
+//Requête sql pour récupérer les détails du match
+if ($requestMethod == 'POST' && $requestRessource == 'detail') {
   $id = strip_tags($_POST['id_jeux']);
-  $request ="SELECT id_jeux,description,jeux.equipe_a,jeux.equipe_b,
+  $request = "SELECT id_jeux,description,jeux.equipe_a,jeux.equipe_b,
 jeux.prenom,jeux.nom,jeux.adresse,
 jeux.prix FROM jeux
-WHERE jeux.id_jeux=".$id;
- $statement = $db->prepare($request);
- $statement->execute();
- $result = $statement->fetchAll(PDO::FETCH_ASSOC);
- $data = $result;
+WHERE jeux.id_jeux=" . $id;
+  $statement = $db->prepare($request);
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $data = $result;
 }
+
+//Requête sql pour récupérer la liste des joueurs d'un match
 if($requestMethod =='POST'&& $requestRessource == 'liste_joueur_pour_match'){
   $id = strip_tags($_POST['id_jeux']);
   $request="SELECT profil.nom, profil.prenom , profil.photo, jeux.id_jeux from  jeux 
@@ -238,9 +267,9 @@ if($requestMethod =='POST'&& $requestRessource == 'liste_joueur_pour_match'){
   $data = $result;
 }
 
-if($requestMethod =='GET'&& $requestRessource == 'elem_pour_filtre'){
- 
-  $request ="SELECT titre, id_jeux, ville.nom, sport.type_sport, DATEDIFF(jeux.date,NOW())as jours
+//Requête sql pour récupérer les informations nécessaire au fonctionnement du filtre
+if ($requestMethod == 'GET' && $requestRessource == 'elem_pour_filtre') {
+  $request = "SELECT titre, id_jeux, ville.nom, sport.type_sport, DATEDIFF(jeux.date,NOW())as jours
   FROM jeux
   JOIN sport ON sport.type_sport=jeux.type_sport
   JOIN ville ON ville.insee=jeux.insee
@@ -250,54 +279,66 @@ if($requestMethod =='GET'&& $requestRessource == 'elem_pour_filtre'){
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
-if($requestMethod =='POST'&& $requestRessource == 'demande'){
+
+//Requête sql ajouter une demande de participation à un match
+if ($requestMethod == 'POST' && $requestRessource == 'demande') {
   $id = strip_tags($_POST['id_jeux']);
   $profil = $_SESSION['profil'];
-  
-  $request="INSERT INTO `demande` (`id_jeux`, `email`, `accepter`) VALUES ('".$id."', '".$profil."', '0')";
+  $request = "INSERT INTO `demande` (`id_jeux`, `email`, `accepter`)
+  VALUES ('" . $id . "', '" . $profil . "', '0')";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
-if($requestMethod =='GET'&& $requestRessource == 'recherche_demande'){
+
+//Requête sql récupére les demandes du profil connecté
+if ($requestMethod == 'GET' && $requestRessource == 'recherche_demande') {
   $profil = $_SESSION['profil'];
-  $request ="SELECT * from demande WHERE email ='".$profil."'";
+  $request = "SELECT * from demande WHERE email ='" . $profil . "'";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
-if($requestMethod =='POST'&& $requestRessource == 'validation_demande'){
+
+//Requête sql pour accepter une demande de participation à un match
+if ($requestMethod == 'POST' && $requestRessource == 'validation_demande') {
   $profil = $_SESSION['profil'];
   $demandeur = strip_tags($_POST['email']);
   $id = strip_tags($_POST['id']);
-  if($demandeur == $profil){
-    $request ="UPDATE `a_comme_statut` SET `joueur` = '1' WHERE `a_comme_statut`.`id_jeux` = '".$id."' AND `a_comme_statut`.`email` = '".$profil."';";
-  }else{
-    $request ="INSERT INTO `a_comme_statut` (`id_jeux`, `email`, `organisateur`, `joueur`) VALUES ('".$id."', '".$demandeur."', '0', '1')";
+  if ($demandeur == $profil) {
+    $request = "UPDATE `a_comme_statut` SET `joueur` = '1'
+    WHERE `a_comme_statut`.`id_jeux` = '" . $id . "' AND `a_comme_statut`.`email` = '" . $profil . "';";
+  } else {
+    $request = "INSERT INTO `a_comme_statut` (`id_jeux`, `email`, `organisateur`, `joueur`)
+    VALUES ('" . $id . "', '" . $demandeur . "', '0', '1')";
   }
   $statement = $db->prepare($request);
   $statement->execute();
-  $request ="UPDATE `demande` SET `accepter` = '1' WHERE `demande`.`id_jeux` = '".$id."' AND email = '".$demandeur."';";
+  $request = "UPDATE `demande` SET `accepter` = '1'
+  WHERE `demande`.`id_jeux` = '" . $id . "' AND email = '" . $demandeur . "';";
   $statement = $db->prepare($request);
   $statement->execute();
-   $data = null;
+  $data = null;
 }
-if($requestMethod =='POST'&& $requestRessource == 'refuser_demande'){
+
+//Requête sql pour supprimer une demande de participation à un match
+if ($requestMethod == 'POST' && $requestRessource == 'refuser_demande') {
   $profil = $_SESSION['profil'];
   $demandeur = strip_tags($_POST['email']);
   $id = strip_tags($_POST['id']);
-  $request ="DELETE FROM `demande` WHERE `demande`.`id_jeux` = '".$id."' AND email = '".$demandeur."';";
+  $request = "DELETE FROM `demande` WHERE `demande`.`id_jeux` = '" . $id . "' AND email = '" . $demandeur . "';";
   $statement = $db->prepare($request);
   $statement->execute();
   $data = $request;
 }
 
-if($requestMethod == 'POST' && $requestRessource == 'modifier_carte'){
+//Requête sql pour modifier les informations d'un match
+if ($requestMethod == 'POST' && $requestRessource == 'modifier_carte') {
   $titre = strip_tags($_POST['titre']);
   $adresse = strip_tags($_POST['adresse']);
-  $villes= strip_tags($_POST['villes']);
+  $villes = strip_tags($_POST['villes']);
   $description = strip_tags($_POST['description']);
   $date = strip_tags($_POST['date']);
   $duree = strip_tags($_POST['duree']);
@@ -305,36 +346,37 @@ if($requestMethod == 'POST' && $requestRessource == 'modifier_carte'){
   $sports = strip_tags($_POST['sports']);
   $nb = strip_tags($_POST['nb']);
   $prix = strip_tags($_POST['prix']);
-  if($_POST['nb_equipe_a']==""){
-    $equipe_a= NULL;
-    $equipe_b= NULL;
+  if ($_POST['nb_equipe_a'] == "") {
+    $equipe_a = NULL;
+    $equipe_b = NULL;
     $nom = NULL;
     $prenom = NULL;
-  }else{
+  } else {
     $equipe_a = strip_tags($_POST['nb_equipe_a']);
     $equipe_b = strip_tags($_POST['nb_equipe_b']);
     $joueur_match = strip_tags($_POST['joueur_match']);
-    $sql= "SELECT profil.nom, profil.prenom FROM profil WHERE email = '".$joueur_match."'";
-    $sta= $db->prepare($sql);
+    $sql = "SELECT profil.nom, profil.prenom FROM profil WHERE email = '" . $joueur_match . "'";
+    $sta = $db->prepare($sql);
     $sta->execute();
     $res = $sta->fetchAll(PDO::FETCH_ASSOC);
     $nom = $res[0]['nom'];
     $prenom = $res[0]['prenom'];
   }
-
   $data = null;
   modifier_jeux($db, $titre, $adresse, $villes, $description, $date, $duree, $heure,
    $sports, $nb, $prix, $equipe_a, $equipe_b, $nom,$prenom,$_SESSION['id']);
 }
 
-if($requestMethod == 'GET' && $requestRessource == 'joueur_match'){
-  $request ="SELECT profil.email, profil.nom, profil.prenom from profil JOIN a_comme_statut ON a_comme_statut.email=profil.email WHERE a_comme_statut.id_jeux = ".$_SESSION['id']." AND a_comme_statut.joueur=1";
+//Requête sql pour récupérer les emails ,les noms et prenoms des joueurs du match
+if ($requestMethod == 'GET' && $requestRessource == 'joueur_match') {
+  $request = "SELECT profil.email, profil.nom, profil.prenom from profil JOIN a_comme_statut ON a_comme_statut.email=profil.email WHERE a_comme_statut.id_jeux = " . $_SESSION['id'] . " AND a_comme_statut.joueur=1";
   $statement = $db->prepare($request);
   $statement->execute();
   $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   $data = $result;
 }
 
+//Requête sql pour récupérer les informations du match pour le modifier
 if ($requestMethod == 'GET' && $requestRessource == 'ancienne_information') {
   $request = "SELECT jeux.titre,jeux.insee,jeux.date, jeux.description, jeux.prix, jeux.nb_joueurmax, ville.nom, sport.type_sport,jeux.adresse, heure, duree
    from jeux JOIN ville ON ville.insee= jeux.insee
@@ -346,31 +388,31 @@ if ($requestMethod == 'GET' && $requestRessource == 'ancienne_information') {
   $data = $result;
 }
 
+//Requête sql pour modifier le mot de passe
 if ($requestMethod == 'POST' && $requestRessource == 'modif_mot_de_passe') {
-  $request = "SELECT mot_de_passe FROM profil WHERE email ='".$_SESSION['profil']."'";
+
+  $request = "SELECT mot_de_passe FROM profil WHERE email ='" . $_SESSION['profil'] . "'";
   $statement = $db->prepare($request);
   $statement->execute();
   $tab = $statement->fetchAll(PDO::FETCH_ASSOC);
   $hashed_password = $tab[0]['mot_de_passe'];
   $mot_de_passe = strip_tags($_POST['ancien_mot_de_passe']);
-  //print_r($request);
-  if(password_verify($mot_de_passe, $hashed_password)) {
-    
+  //verification de l'ancien mot de passe
+  if (password_verify($mot_de_passe, $hashed_password)) {
+    //changement du mot de passe
     $nouveau_mot_de_passe = strip_tags($_POST['nouveau_mot_de_passe']);
     $hashed_password = password_hash($nouveau_mot_de_passe, PASSWORD_BCRYPT);
-    $request = "UPDATE profil SET mot_de_passe ='".$hashed_password."' WHERE email ='".$_SESSION['profil']."'";
+    $request = "UPDATE profil SET mot_de_passe ='" . $hashed_password . "' WHERE email ='" . $_SESSION['profil'] . "'";
     $statement = $db->prepare($request);
     $statement->execute();
     $data = "oui";
-    } else{
-      $data = "non";
-    }
-
-  //$data = $request;
+  } else {
+    //si le mot de passe 'ancien' est mauvais alors on revoit data = 'non'
+    $data = "non";
+  }
 }
 
-
-  // Send data to the client.
+  //Envoyer la donnée au client
   header('Content-Type: application/json; charset=utf-8');
   header('Cache-control: no-store, no-cache, must-revalidate');
   header('Pragma: no-cache');

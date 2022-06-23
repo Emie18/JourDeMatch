@@ -20,12 +20,13 @@ label,
         align-items: center;
 
     }
-    .carte.carte_agrandi{
-    
-        top:0;
+
+    .carte.carte_agrandi {
+
+        top: 0;
     }
 
-    .responsive{
+    .responsive {
         display: flex;
         flex-direction: row;
         width: 100%;
@@ -33,53 +34,50 @@ label,
         font-size: 40px;
         justify-content: space-between;
         color: white;
-      
+
         background: #3C096C;
     }
-    #photo{
-        background:none;
+
+    #photo {
+        background: none;
     }
 
-    .affiche_notif{
-       /* position: absolute;*/
-        
+    .affiche_notif {
         left: 0;
-        
-        /* background: #3C096C; */
-        /* border-bottom-left-radius: 10px; */
-        height:0px;
-        width:0%;
+        height: 0px;
+        width: 0%;
         top: 60px;
-        /* display: none; */
         display: flex;
-         
         flex-direction: column;
         transition: 1s;
-        /* z-index: 1;
-        display: none; */
-      }
-      .affiche_notif.active {
-       
+    }
+
+    .affiche_notif.active {
+
         /* display:flex; */
         width: 100%;
         height: fit-content;
-       
-      }
-      #notif{
+
+    }
+
+    #notif {
         display: block;
-      }
-      .btn_connexion #notif2 img{
+    }
+
+    .btn_connexion #notif2 img {
         display: none;
-      }
-      .affiche_notif p {
-        display:none;
+    }
+
+    .affiche_notif p {
+        display: none;
         opacity: 0;
-        transition:1s
-      }
-      .affiche_notif.active p{
+        transition: 1s
+    }
+
+    .affiche_notif.active p {
         opacity: 1;
-        display:block;
-      }
+        display: block;
+    }
 
     .edit {
         margin-left: 70%;
@@ -144,21 +142,26 @@ label,
         cursor: pointer;
         background: #3C096C;
     }
+
     .responsive a img {
         width: 30px;
     }
-    .responsive a{
+
+    .responsive a {
         display: flex;
         width: 30px;
         justify-content: center;
         margin: 20px;
     }
-    .imp{
-        background:transparent;
+
+    .imp {
+        background: transparent;
     }
-    .responsive  span{
-        margin-left:10px;
+
+    .responsive span {
+        margin-left: 10px;
     }
+
     #toggle:checked+.header {
         display: flex;
     }
@@ -166,44 +169,51 @@ label,
     #toggle:checked+.conteneur {
         display: none;
     }
-    .header p{
+
+    .header p {
         display: flex;
         flex-direction: column;
         align-items: center;
         position: relative;
         width: 100%;
     }
-    .header p .liste_match{
+
+    .header p .liste_match {
         width: 80%;
         text-align: center;
         border-bottom: 2px solid rgba(255, 255, 255, 0.544);
         padding-bottom: 1rem;
         padding-top: 1rem;
-        margin:0;
+        margin: 0;
     }
+
     .header .btn_connexion {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
     }
-    .header .btn_connexion #notif,#profil,#mes_matchs{
+
+    .header .btn_connexion #notif,
+    #profil,
+    #mes_matchs {
         width: 80%;
         text-align: center;
         border-bottom: 2px solid rgba(255, 255, 255, 0.544);
         padding-bottom: 1rem;
         padding-top: 1rem;
-        margin:0;
+        margin: 0;
     }
-    .header .btn_connexion #notif{
-        display:none;
+
+    .header .btn_connexion #notif {
+        display: none;
     }
 
     .text-connexion {
         background: none;
         padding-bottom: 1rem;
         padding-top: 1rem;
-        
+
     }
-    
+
 }
