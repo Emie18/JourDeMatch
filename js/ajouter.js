@@ -28,15 +28,20 @@ $('#formulaire_inscription').submit((event) =>
   {
     event.preventDefault();
     let photo = document.getElementById('photo').src;
-    ajaxRequest('POST', 'php/request.php/inscription/',null, 'nom=' + $('#nom').val() + '&prenom=' + $('#prenom').val()+ '&photo=' + $('#photo').val()+ '&email=' + $('#email').val()+ '&mot_de_passe=' + $('#mot_de_passe').val()+ '&villes=' + $('#villes').val()+ '&photo=' + photo);
-    document.getElementById('formulaire_inscription').innerHTML = 'Incription réussi !!!';
-    let d = document.createElement('a');
-    d.className="btn_cc b";
-    d.href='connexion.html';
-    d.innerHTML='Connexion';
-    document.getElementById('formulaire_inscription').style.display='flex';
-    document.getElementById('formulaire_inscription').style.flexDirection='column';
-    document.getElementById('formulaire_inscription').appendChild(d);
+    if($('#mot_de_passe').val().localeCompare($('#mot_de_passe_confirmation').val())==0){
+            ajaxRequest('POST', 'php/request.php/inscription/',null, 'nom=' + $('#nom').val() + '&prenom=' + $('#prenom').val()+ '&photo=' + $('#photo').val()+ '&email=' + $('#email').val()+ '&mot_de_passe=' + $('#mot_de_passe').val()+ '&villes=' + $('#villes').val()+ '&photo=' + photo);
+      document.getElementById('formulaire_inscription').innerHTML = 'Incription réussi !!!';
+      let d = document.createElement('a');
+      d.className="btn_cc b";
+      d.href='connexion.html';
+      d.innerHTML='Connexion';
+      document.getElementById('formulaire_inscription').style.display='flex';
+      document.getElementById('formulaire_inscription').style.flexDirection='column';
+      document.getElementById('formulaire_inscription').appendChild(d);
+    }else{
+      $('#erreur').html('Ce n\'est pas le même mot de passe !');
+    }
+
   }
 );
 

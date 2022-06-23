@@ -147,6 +147,7 @@ if($requestMethod =='POST'&& $requestRessource == 'connexion'){
   $statement = $db->prepare($request);
   $statement->execute();
   $tab = $statement->fetchAll(PDO::FETCH_ASSOC);
+  if(!empty($tab)){
   $hashed_password = $tab[0]['mot_de_passe'];
   if (empty(session_id())) session_start();
     if(password_verify($mot_de_passe, $hashed_password)) {
@@ -156,6 +157,9 @@ if($requestMethod =='POST'&& $requestRessource == 'connexion'){
       $_SESSION['profil'] = ' ';
       $data = null;
     }
+  } else{
+    $data = null;
+  }
 }
 if($requestMethod =='GET'&& $requestRessource == 'deconnexion'){
 
