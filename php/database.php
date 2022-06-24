@@ -65,24 +65,37 @@ function ajouter_jeux($db, $titre, $adresse, $villes, $description, $date, $heur
 function inscription($db, $nom, $prenom, $photo, $email, $mot_de_passe, $ville)
 {
   try {
-    $hashed_password = password_hash($mot_de_passe, PASSWORD_BCRYPT);
-    echo $hashed_password;
-    $request = "INSERT into profil (nom,prenom,photo,email,mot_de_passe,insee)
-    Values(:nom,:prenom,'" . $photo . "',:email, '" . $hashed_password . "',:ville)";
+    //recherche de l'email donné
+    $request = "SELECT email from profil WHERE email = :email";
     $statement = $db->prepare($request);
     $statement->execute(array(
-      ':nom' => $nom,
-      ':prenom' => $prenom,
-      ':ville' => $ville,
       ':email' => $email
     ));
     $statement->execute();
-    print_r($request);
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    //on regarde si l'email existe déjà
+    if (empty($result)) {
+      $hashed_password = password_hash($mot_de_passe, PASSWORD_BCRYPT);
+      $request = "INSERT into profil (nom,prenom,photo,email,mot_de_passe,insee)
+    Values(:nom,:prenom,'" . $photo . "',:email, '" . $hashed_password . "',:ville)";
+      $statement = $db->prepare($request);
+      $statement->execute(array(
+        ':nom' => $nom,
+        ':prenom' => $prenom,
+        ':ville' => $ville,
+        ':email' => $email
+      ));
+      $statement->execute();
+      //on retourne oui si l'email n'existe pas
+      return "oui";
+    } else {
+      //on retourne non si l'email existe
+      return "non";
+    }
   } catch (PDOException $exception) {
     error_log('Request error: ' . $exception->getMessage());
     return false;
   }
-  return true;
 }
 
 //fonction pour modifier le profil
