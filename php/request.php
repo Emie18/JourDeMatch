@@ -150,9 +150,7 @@ if ($requestMethod == 'POST' && $requestRessource == 'inscription') {
   $email = strip_tags($_POST['email']);
   $mot_de_passe = strip_tags($_POST['mot_de_passe']);
   $ville = strip_tags($_POST['villes']);
-  print_r($photo);
-  $data = null;
-  inscription($db, $nom, $prenom, $photo, $email, $mot_de_passe, $ville, $photo);
+  $data = inscription($db, $nom, $prenom, $photo, $email, $mot_de_passe, $ville, $photo);
 }
 
 //Requête pour se connecter

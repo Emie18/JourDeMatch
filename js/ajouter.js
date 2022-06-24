@@ -31,8 +31,23 @@ $('#formulaire_inscription').submit((event) =>
     event.preventDefault();
     let photo = document.getElementById('photo').src;
     if($('#mot_de_passe').val().localeCompare($('#mot_de_passe_confirmation').val())==0){
-            ajaxRequest('POST', 'php/request.php/inscription/',null, 'nom=' + $('#nom').val() + '&prenom=' + $('#prenom').val()+ '&photo=' + $('#photo').val()+ '&email=' + $('#email').val()+ '&mot_de_passe=' + $('#mot_de_passe').val()+ '&villes=' + $('#villes').val()+ '&photo=' + photo);
-      document.getElementById('formulaire_inscription').innerHTML = 'Incription réussi !!!';
+            ajaxRequest('POST', 'php/request.php/inscription/',verif_email, 'nom=' + $('#nom').val() + '&prenom=' + $('#prenom').val()+ '&photo=' + $('#photo').val()+ '&email=' + $('#email').val()+ '&mot_de_passe=' + $('#mot_de_passe').val()+ '&villes=' + $('#villes').val()+ '&photo=' + photo);
+      
+    }else{
+      $('#erreur').html('Ce n\'est pas le même mot de passe !');
+    }
+
+  }
+);
+
+//fonction qui affiche une erreur si l'email existe déjà
+function verif_email(data){
+  console.log(data);
+  if(data =="non"){
+    $('#erreur').html('Cet email est déjà utilisé !');
+  }
+  if(data=="oui"){
+      $('#formulaire_inscription').html('Incription réussi !!!');
       let d = document.createElement('a');
       d.className="btn_cc b";
       d.href='connexion.html';
@@ -40,12 +55,8 @@ $('#formulaire_inscription').submit((event) =>
       document.getElementById('formulaire_inscription').style.display='flex';
       document.getElementById('formulaire_inscription').style.flexDirection='column';
       document.getElementById('formulaire_inscription').appendChild(d);
-    }else{
-      $('#erreur').html('Ce n\'est pas le même mot de passe !');
-    }
-
   }
-);
+}
 
 //Modification d'un profil
 $('#modif_p').submit((event) =>
